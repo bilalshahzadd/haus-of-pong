@@ -1,0 +1,9 @@
+# Deploys are made straight from the CLI, so nothing here is filtered by git.
+# Real values live in the Vercel project's Environment Variables — a local
+# .env.local must never be uploaded alongside the source.
+.env*.local
+
+node_modules
+.next
+.git
+.DS_Store
