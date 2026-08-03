@@ -188,7 +188,10 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Please enter a valid email address.' }, { status: 400 })
   }
 
-  const mode = PORTAL_ID && FORM_GUID ? 'forms' : PRIVATE_APP_TOKEN ? 'crm' : null
+  // CRM first. This portal's form was built in HubSpot's new form editor, and
+  // the legacy Forms API answers 200 for it without ever creating the contact —
+  // a silent lead loss. Only fall back to Forms for a classic-editor form.
+  const mode = PRIVATE_APP_TOKEN ? 'crm' : PORTAL_ID && FORM_GUID ? 'forms' : null
 
   if (!mode) {
     console.error('[contact] HubSpot is not configured — no credentials in env.')
