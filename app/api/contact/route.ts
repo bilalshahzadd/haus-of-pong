@@ -67,12 +67,17 @@ function splitName(full: string) {
 async function submitViaForms(p: Payload) {
   const { firstname, lastname } = splitName(p.name)
 
+  // The subject also rides inside the message body. `enquiry_subject` is a
+  // custom property, and HubSpot answers 200 even when a field it doesn't
+  // recognise is dropped — so the inline copy is what guarantees it arrives.
+  const body = p.subject ? `Subject: ${p.subject}\n\n${p.message}` : p.message
+
   const fields = [
     { name: 'email', value: p.email },
     { name: 'firstname', value: firstname },
     { name: 'lastname', value: lastname },
     { name: 'enquiry_subject', value: p.subject },
-    { name: 'message', value: p.message },
+    { name: 'message', value: body },
   ]
     .filter((f) => f.value)
     .map((f) => ({ objectTypeId: '0-1', ...f }))
