@@ -31,8 +31,58 @@ const fieldLabel = 'font-geist text-f12 font-semibold uppercase leading-none tra
 const field =
   'mt-s20 w-full rounded-lg border border-white/[0.1] bg-[#35353480] px-s16 py-s12 font-jakarta text-f16 leading-[1.5] text-white placeholder:text-white/35 focus:border-orange/60 focus:outline-none transition-colors'
 
+type Status = 'idle' | 'sending' | 'sent' | 'error'
+
+/** Present only when the HubSpot tracking script is installed; links the
+ *  submission to the visitor's browsing history instead of creating an
+ *  anonymous contact. Absent is fine — the route just omits it. */
+function readHubspotCookie() {
+  return document.cookie.match(/(?:^|;\s*)hubspotutk=([^;]*)/)?.[1] ?? ''
+}
+
 export default function ContactBody() {
-  const [sent, setSent] = useState(false)
+  const [status, setStatus] = useState<Status>('idle')
+  const [error, setError] = useState('')
+
+  const sending = status === 'sending'
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    if (sending) return
+
+    const form = event.currentTarget
+    const data = new FormData(form)
+
+    setStatus('sending')
+    setError('')
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: data.get('name'),
+          email: data.get('email'),
+          subject: data.get('subject'),
+          message: data.get('message'),
+          company_website: data.get('company_website'),
+          hutk: readHubspotCookie(),
+          pageUri: window.location.href,
+        }),
+      })
+
+      if (!res.ok) {
+        const body = await res.json().catch(() => null)
+        throw new Error(body?.error ?? 'Something went wrong. Please try again.')
+      }
+
+      form.reset()
+      setStatus('sent')
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
+      setStatus('error')
+    }
+  }
 
   return (
     <div className="shell relative pb-s140 pt-s50">
@@ -105,19 +155,31 @@ export default function ContactBody() {
         {/* Form panel — 750/1520 */}
         <Reveal delay={0.18} className="xl:w-[49.34%] xl:self-start xl:pt-[6%]">
           <form
-            onSubmit={(e) => {
-              e.preventDefault()
-              setSent(true)
-            }}
+            onSubmit={handleSubmit}
+            noValidate
             className="rounded-r24 border border-white/20 bg-[#111111b2] p-s40 backdrop-blur-[20px]"
           >
+            {/* Honeypot — off-screen rather than display:none, which some bots skip */}
+            <div aria-hidden className="absolute left-[-9999px] top-0 h-0 w-0 overflow-hidden">
+              <label htmlFor="company_website">Company website</label>
+              <input id="company_website" name="company_website" tabIndex={-1} autoComplete="off" />
+            </div>
+
             <div className="flex flex-col gap-s30">
               <div className="grid gap-s24 sm:grid-cols-2">
                 <div className="pt-s8">
                   <label htmlFor="name" className={fieldLabel}>
                     Name
                   </label>
-                  <input id="name" name="name" placeholder="Your Name" required className={field} />
+                  <input
+                    id="name"
+                    name="name"
+                    placeholder="Your Name"
+                    required
+                    disabled={sending}
+                    autoComplete="name"
+                    className={field}
+                  />
                 </div>
                 <div className="pt-s8">
                   <label htmlFor="email" className={fieldLabel}>
@@ -129,6 +191,8 @@ export default function ContactBody() {
                     type="email"
                     placeholder="email@address.com"
                     required
+                    disabled={sending}
+                    autoComplete="email"
                     className={field}
                   />
                 </div>
@@ -138,7 +202,7 @@ export default function ContactBody() {
                 <label htmlFor="subject" className={fieldLabel}>
                   Subject
                 </label>
-                <select id="subject" name="subject" className={`${field} appearance-none`}>
+                <select id="subject" name="subject" disabled={sending} className={`${field} appearance-none`}>
                   {SUBJECTS.map((s) => (
                     <option key={s} value={s} className="bg-ink-700">
                       {s}
@@ -156,6 +220,8 @@ export default function ContactBody() {
                   name="message"
                   rows={4}
                   placeholder="How can we help you?"
+                  required
+                  disabled={sending}
                   className={`${field} resize-none`}
                 />
               </div>
@@ -163,10 +229,19 @@ export default function ContactBody() {
 
             <button
               type="submit"
-              className="mt-s50 w-full rounded-pill bg-cta py-s16 font-body text-f18 font-semibold text-[#301e01] transition-transform duration-300 hover:scale-[1.01]"
+              disabled={sending}
+              className="mt-s50 w-full rounded-pill bg-cta py-s16 font-body text-f18 font-semibold text-[#301e01] transition-transform duration-300 hover:scale-[1.01] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100"
             >
-              {sent ? 'Message sent — we’ll be in touch' : 'Send Message'}
+              {sending ? 'Sending…' : status === 'sent' ? 'Message sent' : 'Send Message'}
             </button>
+
+            {/* aria-live so screen readers announce the result without a focus jump */}
+            <p aria-live="polite" className="min-h-[1.5em] pt-s16 text-center font-body text-f14 leading-[1.4]">
+              {status === 'sent' && (
+                <span className="text-[#7ee0a8]">Thanks — we’ve got it. We’ll be in touch shortly.</span>
+              )}
+              {status === 'error' && <span className="text-[#ff8f7a]">{error}</span>}
+            </p>
           </form>
         </Reveal>
       </div>
