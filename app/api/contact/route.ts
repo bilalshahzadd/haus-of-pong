@@ -49,7 +49,7 @@ type Payload = {
   subject: string
   message: string
   /** Honeypot — a real person never fills a field they cannot see. */
-  company_website?: string
+  hp_field?: string
   /** HubSpot tracking cookie, present only if the tracking script is installed. */
   hutk?: string
   pageUri?: string
@@ -172,7 +172,11 @@ export async function POST(request: Request) {
   }
 
   // Bot filled the hidden field — accept it so it never retries, but drop it.
-  if (body.company_website) return NextResponse.json({ ok: true })
+  // Logged (not silent) because browser autofill can trigger this on a real visitor too.
+  if (body.hp_field) {
+    console.warn('[contact] honeypot triggered — submission dropped:', { ip, email: clean(body.email, LIMITS.email) })
+    return NextResponse.json({ ok: true })
+  }
 
   const payload: Payload = {
     name: clean(body.name, LIMITS.name),

@@ -65,7 +65,7 @@ export default function ContactBody() {
           email: data.get('email'),
           subject: data.get('subject'),
           message: data.get('message'),
-          company_website: data.get('company_website'),
+          hp_field: data.get('hp_field'),
           hutk: readHubspotCookie(),
           pageUri: window.location.href,
         }),
@@ -159,10 +159,13 @@ export default function ContactBody() {
             noValidate
             className="rounded-r24 border border-white/20 bg-[#111111b2] p-s40 backdrop-blur-[20px]"
           >
-            {/* Honeypot — off-screen rather than display:none, which some bots skip */}
+            {/* Honeypot — off-screen rather than display:none, which some bots skip.
+                Field name avoids "company"/"website"/"url" on purpose: those words make
+                browser autofill (Chrome/Safari saved profiles) silently fill this even
+                though it's invisible, which drops the real submission as a false bot hit. */}
             <div aria-hidden className="absolute left-[-9999px] top-0 h-0 w-0 overflow-hidden">
-              <label htmlFor="company_website">Company website</label>
-              <input id="company_website" name="company_website" tabIndex={-1} autoComplete="off" />
+              <label htmlFor="hp_field">Leave this field blank</label>
+              <input id="hp_field" name="hp_field" tabIndex={-1} autoComplete="off" />
             </div>
 
             <div className="flex flex-col gap-s30">
