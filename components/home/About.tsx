@@ -58,8 +58,8 @@ export default function About() {
             <Reveal delay={0.24}>
               <div className="relative mt-s16 aspect-[596/420] w-full overflow-hidden rounded-r32">
                 <Image
-                  src="/images/about-interior.png"
-                  alt="Haus of Pong interior with neon-lit tables"
+                  src="/images/community-tableside.jpg"
+                  alt="A player resting by the net, paddle in hand, at Haus of Pong"
                   fill
                   sizes="(max-width: 1280px) 100vw, 596px"
                   className="object-cover"

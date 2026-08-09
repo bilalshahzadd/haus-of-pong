@@ -95,8 +95,8 @@ export default function Gallery() {
             </Reveal>
             <Reveal delay={0.08}>
               <Tile
-                src="/images/gallery-events.png"
-                alt="Crowd at a Haus of Pong league night"
+                src="/images/community-capitol-toss.jpg"
+                alt="Regulars celebrating outside with Haus of Pong balls in the air"
                 label="Events"
                 aspect="aspect-[429/300]"
               />
@@ -107,17 +107,17 @@ export default function Gallery() {
           <div className="flex flex-col gap-s24 xl:gap-[36px]">
             <Reveal delay={0.06}>
               <Tile
-                src="/images/gallery-players.png"
-                alt="Players sharing drinks across the table"
+                src="/images/community-huddle.jpg"
+                alt="Regulars huddled together holding Haus of Pong paddles"
                 label="Players"
                 aspect="aspect-[429/300]"
               />
             </Reveal>
             <Reveal delay={0.14}>
               <Tile
-                src="/images/gallery-ball.png"
-                alt="Orange ping pong ball under a spotlight"
-                label="Players"
+                src="/images/community-ball-eyes.jpg"
+                alt="A player holding two Haus of Pong balls up to her eyes"
+                label="Ball"
                 aspect="aspect-[429/640]"
               />
             </Reveal>

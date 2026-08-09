@@ -46,8 +46,8 @@ export default function VenueDetailsPage() {
         <Reveal>
           <div className="relative aspect-[1520/829] w-full overflow-hidden rounded-[30px] max-md:aspect-[4/3]">
             <Image
-              src="/images/venue-hero.png"
-              alt="Table tennis hall at Haus of Pong"
+              src="/images/community-underground.jpg"
+              alt="A player with a Haus of Pong paddle and ball in the underground lounge"
               fill
               priority
               sizes="(max-width: 1520px) 100vw, 1520px"
