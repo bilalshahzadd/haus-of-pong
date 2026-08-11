@@ -14,14 +14,10 @@ import { Icon } from './ui'
  */
 
 const DETAILS = [
-  { icon: 'contact-visit', label: 'Visit', value: ['221 Underground Ave', 'New York, NY 10013'] },
+  { icon: 'contact-visit', label: 'Visit', value: ['209 N. Walnut Ave. Suite 102', 'Oklahoma City, OK 73104'] },
   { icon: 'contact-call', label: 'Call', value: ['+1 234 567 8901'], href: 'tel:+12345678901' },
   { icon: 'contact-email', label: 'Email', value: ['abc@domain.com'], href: 'mailto:abc@domain.com' },
-  {
-    icon: 'contact-hours',
-    label: 'Hours',
-    value: ['Mon — Thu · 5pm — 1am', 'Fri — Sat · 5pm — 3am', 'Sun · 3pm — 12am'],
-  },
+  { icon: 'contact-hours', label: 'Hours', value: ['Open 24/7 by reservation'] },
 ]
 
 const SUBJECTS = ['Table Booking', 'Corporate Event', 'Private Hire', 'League Enquiry', 'Something Else']

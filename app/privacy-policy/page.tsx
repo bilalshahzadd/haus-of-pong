@@ -12,7 +12,12 @@ export const metadata: Metadata = {
   description: 'How Haus of Pong handles your information.',
 }
 
-const COPY = `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since 1966, when designers at Letraset and James Mosley, the librarian at St Bride Printing Library in London, took a 1914 Cicero translation and scrambled it to make dummy text for Letraset’s Body Type sheets. It has survived not only many decades, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised thanks to these sheets and more recently with desktop publishing software like Aldus PageMaker and Microsoft Word including versions of Lorem Ipsum. orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since 1966, when designers at Letraset and James Mosley, the librarian at St Bride Printing Library in London, took a 1914 Cicero translation and scrambled it to make dummy text for Letraset’s Body Type sheets. It has survived not only many decades, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised thanks to these sheets and more recently with desktop publishing software like Aldus PageMaker and Microsoft Word including versions of Lorem Ipsum. orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since 1966, when designers at Letraset and James Mosley, the librarian at St Bride Printing Library in London, took a 1914 Cicero translation and scrambled it to make dummy text for Letraset’s Body Type sheets. It has survived not only many decades, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised thanks to these sheets and more recently with desktop publishing software like Aldus PageMaker and Microsoft Word including versions of Lorem Ipsum.`
+const COPY = [
+  `Haus of Pong collects only what's needed to run your reservation: your name, email, and phone number when you book a table, join the VIP list, or send us a message. We use this information to confirm bookings, send your access code, and reach you about your visit — nothing else.`,
+  `We don't sell your information. It's shared only with the tools that keep the lounge running, like our booking and CRM systems, and only as far as needed to serve you.`,
+  `Our site uses essential cookies to keep the booking flow working, and analytics cookies to understand how the site is used. You can control cookies through your browser at any time.`,
+  `If you'd like your information updated or removed, email us at abc@domain.com and we'll take care of it.`,
+]
 
 export default function PrivacyPolicyPage() {
   return (
@@ -23,10 +28,11 @@ export default function PrivacyPolicyPage() {
 
       <div className="shell pb-s250 pt-s50">
         <Reveal>
-          {/* Manrope 500 / 28 / lh 33, centred, 1337 wide */}
-          <p className="mx-auto max-w-[1337px] text-center font-body text-f24 font-medium leading-[1.18] text-white/60">
-            {COPY}
-          </p>
+          <div className="mx-auto flex max-w-[720px] flex-col gap-s24 font-body text-f16 leading-[1.7] text-white/60">
+            {COPY.map((paragraph) => (
+              <p key={paragraph.slice(0, 20)}>{paragraph}</p>
+            ))}
+          </div>
         </Reveal>
       </div>
     </div>

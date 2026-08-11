@@ -33,22 +33,9 @@ export default function VisitVip() {
                 </span>
               </div>
 
-              <div className="mt-s30 flex items-start gap-s32">
-                <span className="grid h-chip80 w-chip80 shrink-0 place-items-center rounded-full border border-white/[0.16] bg-chip">
-                  <Icon name="icon-location-pin" size="50%" />
-                </span>
-                <div>
-                  <p className="font-body text-f14 uppercase leading-none tracking-[0.22em] text-white/45">Location</p>
-                  <h3 className="mt-s10 font-display text-f30 font-bold leading-[1.208] tracking-[-0.02em] text-white">
-                    Haus of Pong — Downtown OKC
-                  </h3>
-                  <p className="mt-s10 font-body text-f16 leading-[1.5] text-white/60">
-                    209 N. Walnut Ave. Suite 102 Oklahoma City, OK 73104
-                  </p>
-                </div>
-              </div>
-
-              {/* Live Google Maps embed in place of the 680x362 static map from Figma */}
+              {/* Live Google Maps embed in place of the 680x362 static map from Figma.
+                  The address/heading block that used to sit above this was dropped —
+                  it repeated what the Locations section already shows in full. */}
               <div className="relative mt-s30 aspect-[680/362] w-full overflow-hidden rounded-r24 border border-white/[0.07]">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3249.408375138811!2d-97.50972159999999!3d35.4694386!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x87b217aa3c6b8ef3%3A0x9741f49689538779!2sHaus%20of%20Pong!5e0!3m2!1sen!2s!4v1785477291626!5m2!1sen!2s"

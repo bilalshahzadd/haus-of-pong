@@ -39,8 +39,8 @@ export default function AppSection() {
 
             <Reveal delay={0.16}>
               <p className="max-w-[448px] pt-s8 font-body text-f16 leading-[1.625] text-white/60">
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                industry&apos;s standard dummy text ever since 1966s
+                Skip the line. Book a table, grab your access code, and manage your reservation — all from your
+                phone.
               </p>
             </Reveal>
 

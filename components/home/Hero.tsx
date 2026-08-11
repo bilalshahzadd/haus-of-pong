@@ -3,7 +3,6 @@
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { CtaButton, GhostButton, StatusPill } from '../ui'
-import PaddleJuggle from './PaddleJuggle'
 
 /**
  * Hero (node 2103:979) — 1920x1200, 200px gutters, content padded 150 top/bottom.
@@ -41,9 +40,10 @@ export default function Hero() {
       {/* 1200 tall on a 1920 artboard = 62.5% of the width, so the hero scales
           with the viewport instead of pinning to 1200 on every desktop. */}
       <div className="shell relative flex min-h-[clamp(640px,62.5vw,1200px)] flex-col justify-center py-s150">
-        <div className="flex items-center gap-[8.125vw] max-xl:flex-col max-xl:items-start max-xl:gap-10">
-          {/* Copy column — 943/1520 of the shell */}
-          <div className="w-full xl:w-[62.04%]">
+        <div className="flex items-center max-xl:flex-col max-xl:items-start">
+          {/* Copy column — client asked to drop the juggling paddle animation, so
+              this now runs full width instead of sharing the row with it. */}
+          <div className="w-full max-w-[820px]">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
@@ -85,7 +85,7 @@ export default function Hero() {
               className="mt-s30 flex flex-wrap gap-s30"
             >
               <CtaButton href="/contact">Book your table</CtaButton>
-              <GhostButton href="/venue-details">Explore The HUAS</GhostButton>
+              <GhostButton href="/venue-details">Explore the Haus</GhostButton>
             </motion.div>
 
             {/* Stats — 64px above, then a hairline with 30px padding and a 50px gap */}
@@ -104,11 +104,6 @@ export default function Hero() {
                 </div>
               ))}
             </motion.dl>
-          </div>
-
-          {/* Paddle column — 412/1520 of the shell */}
-          <div className="relative hidden w-[27.1%] xl:block">
-            <PaddleJuggle />
           </div>
         </div>
       </div>

@@ -20,6 +20,7 @@ const NAV = [
   { label: 'Experiences', href: '/#experiences' },
   { label: 'Locations', href: '/#locations' },
   { label: 'Gallery', href: '/#gallery' },
+  { label: 'Get the App', href: '/#app' },
   { label: 'Contact Us', href: '/contact' },
 ]
 

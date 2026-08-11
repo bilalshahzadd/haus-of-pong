@@ -13,7 +13,7 @@ export default function ContactPage() {
       <div className="hairline" />
       <PageHero
         title="Contact Us"
-        subtitle="Lorem Ipsum is simply dummy text of the printing and typesetting industry"
+        subtitle="Say hello, book a table, or ask us anything — we'll get back to you fast."
       />
       <ContactBody />
     </div>

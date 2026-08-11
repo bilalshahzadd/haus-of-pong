@@ -23,19 +23,14 @@ export default function Locations() {
           </Reveal>
 
           <Reveal delay={0.08}>
-            {/* Figma sets this one in Playfair Display; matched to the other
-                section headings (Space Grotesk) for consistency. */}
             <h2 className="h-display max-w-[803px]">
-              Find a <span className="text-orange">Haus of Pong</span>
-              <br />
-              Near You
+              Find us in <span className="text-orange">Downtown OKC</span>
             </h2>
           </Reveal>
 
           <Reveal delay={0.16}>
             <p className="body-lg max-w-[541px] pt-s8">
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-              industry&apos;s standard dummy text ever since 1966, when designers at Letraset and James
+              One lounge, open around the clock. Reserve a table online and your access code does the rest.
             </p>
           </Reveal>
         </div>
@@ -52,7 +47,7 @@ export default function Locations() {
             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,0.1)_0%,rgba(5,5,5,0.45)_100%)]" />
 
             <span className="absolute right-[3.36%] top-[6.4%] rounded-pill bg-orange-300 px-s16 py-[3px] font-body text-f12 uppercase leading-[1.4] tracking-[0.02em] text-orange-deep xl:text-[20px]">
-              Open Now
+              Open 24/7
             </span>
 
             {/* 928/1520 = 61.05% wide, centred, 34.3% down */}

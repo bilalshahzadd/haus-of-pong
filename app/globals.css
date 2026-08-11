@@ -39,9 +39,11 @@
   --sp-50: clamp(26px, 2.6042vw, 50px);
   --sp-60: clamp(32px, 3.125vw, 60px);
   --sp-64: clamp(32px, 3.3333vw, 64px);
-  --sp-91: clamp(44px, 4.7396vw, 91px);
-  --sp-140: clamp(56px, 7.2917vw, 140px);
-  --sp-250: clamp(112px, 13.0208vw, 250px);
+  --sp-91: clamp(36px, 3.75vw, 72px);
+  /* Section vertical rhythm — tightened from the Figma 140px so the page reads
+     denser and scrolls less, per client direction. */
+  --sp-140: clamp(44px, 5.2083vw, 100px);
+  --sp-250: clamp(88px, 9.375vw, 180px);
   --sp-150: clamp(88px, 7.8125vw, 150px);
   --sp-169: clamp(28px, 8.8021vw, 169px);
 

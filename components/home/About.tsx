@@ -10,18 +10,37 @@ import { Eyebrow, Icon } from '../ui'
  */
 
 const FEATURES = [
-  { icon: 'about-automated-entry', title: 'Automated Entry' },
-  { icon: 'about-vending', title: 'Vending and Merchandise' },
-  { icon: 'about-lounge-seating', title: 'Lounge Seating' },
-  { icon: 'about-online-reservations', title: 'Online Reservations' },
-  { icon: 'about-league-play', title: 'League Play' },
-  { icon: 'about-corporate-events', title: 'Corporate Events' },
-  { icon: 'about-private-bookings', title: 'Private Bookings' },
-  { icon: 'about-date-night', title: 'Open Play And Date Night' },
-  { icon: 'about-video-highlights', title: 'Video Highlights Or Replays' },
+  {
+    icon: 'about-automated-entry',
+    title: 'Automated Entry',
+    copy: 'Skip the front desk — your code unlocks the door and your table.',
+  },
+  {
+    icon: 'about-lounge-seating',
+    title: 'Lounge Seating',
+    copy: 'Comfortable seating for your group, courtside to every table.',
+  },
+  {
+    icon: 'about-league-play',
+    title: 'League Play',
+    copy: 'Weekly ladders with real stakes, for regulars and first-timers alike.',
+  },
+  {
+    icon: 'about-corporate-events',
+    title: 'Corporate Events',
+    copy: 'Offsites and team-builders with a competitive edge.',
+  },
+  {
+    icon: 'about-private-bookings',
+    title: 'Private Bookings',
+    copy: 'Reserve the whole room for a birthday, a launch, or a night out.',
+  },
+  {
+    icon: 'about-date-night',
+    title: 'Date Night',
+    copy: 'Serve up love, laughter, and a little friendly competition.',
+  },
 ]
-
-const BLURB = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
 
 const CARD =
   'relative h-full overflow-hidden rounded-r32 border border-white/[0.08] bg-ink-600 px-[7.5%] py-s16'
@@ -40,18 +59,16 @@ export default function About() {
 
             <Reveal delay={0.08}>
               <h2 className="h-display">
-                The Home of
+                The home of competitive
                 <br />
-                Competitive
-                <br />
-                <span className="text-violet">Social Play.</span>
+                <span className="text-violet">social play.</span>
               </h2>
             </Reveal>
 
             <Reveal delay={0.16}>
               <p className="body-lg max-w-[541px] pt-s8">
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                industry&apos;s standard dummy text ever since 1966, when designers at Letraset and James
+                Tournament-grade tables, a members-grade room, and a door that unlocks with your phone. This is
+                ping pong built for a night out — not a rec room.
               </p>
             </Reveal>
 
@@ -79,7 +96,7 @@ export default function About() {
                     <Icon name={f.icon} size="46%" />
                   </span>
                   <h3 className="mt-s16 font-display text-f20 font-bold leading-[1.4] text-white">{f.title}</h3>
-                  <p className="mt-s8 font-body text-f14 leading-[1.643] text-white/60">{BLURB}</p>
+                  <p className="mt-s8 font-body text-f14 leading-[1.643] text-white/60">{f.copy}</p>
                 </article>
               </Reveal>
             ))}
@@ -88,7 +105,7 @@ export default function About() {
             <Reveal delay={0.4}>
               <article className={`${CARD} flex flex-col justify-center gap-s32`}>
                 <h3 className="font-display text-f20 font-bold leading-[1.4] text-white">
-                  Check Out For More Information...
+                  Book faster with the app.
                 </h3>
                 <div className="flex flex-wrap items-center gap-s16">
                   <a

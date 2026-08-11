@@ -61,15 +61,11 @@ export default function VenueDetailsPage() {
           <div className="flex flex-col gap-s40">
             <Reveal delay={0.08}>
               <section className={cardClass}>
-                <h2 className={serifHead}>Down Town Brooklyn</h2>
+                <h2 className={serifHead}>Downtown Oklahoma City</h2>
 
                 <p className="mt-s30 font-body text-f18 leading-[1.611] text-white/60">
-                  is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                  industry&apos;s standard dummy text ever since 1966, when designers at Letraset and James Mosley, the
-                  librarian at St Bride Printing Library in London, took a 1914 Cicero translation and scrambled it to
-                  make dummy text for Letraset&apos;s Body Type sheets. It has survived not only many decades, but also
-                  the leap into electronic typesetting, remaining essentially unchanged. It was popularised thanks to
-                  these sheets and more recently with desktop publishing software like
+                  A single 2-table pod in the heart of Downtown OKC — tournament tables, curated hospitality, and a
+                  door that unlocks with your phone the moment your reservation starts.
                 </p>
 
                 <h3 className={`${serifHead} mt-s40`}>Venue</h3>
@@ -78,7 +74,7 @@ export default function VenueDetailsPage() {
                     <Icon name="contact-visit" size={16} />
                   </span>
                   <p className="font-display text-f18 leading-[1.556] text-white">
-                    221 Underground Ave New York, NY 10013
+                    209 N. Walnut Ave. Suite 102, Oklahoma City, OK 73104
                   </p>
                 </div>
 
@@ -87,13 +83,7 @@ export default function VenueDetailsPage() {
                   <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-white/[0.16]">
                     <Icon name="contact-hours" size={16} />
                   </span>
-                  <p className="font-display text-f18 leading-[1.556] text-white">
-                    Mon — Thu · 5pm — 1am
-                    <br />
-                    Fri — Sat · 5pm — 3am
-                    <br />
-                    Sun · 3pm — 12am
-                  </p>
+                  <p className="font-display text-f18 leading-[1.556] text-white">Open 24/7 by reservation</p>
                 </div>
               </section>
             </Reveal>

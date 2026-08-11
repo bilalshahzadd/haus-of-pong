@@ -87,22 +87,27 @@ const config: Config = {
         pill: '999px',
       },
       backgroundImage: {
-        // CTA pill — LINEAR 90deg #a74ae5 -> #fd991f
+        // CTA pill — LINEAR 90deg #a74ae5 -> #fd991f. Kept as the one signature
+        // gradient moment on the site — every other surface below went flat/black
+        // per client direction ("less gradient, keep most backgrounds black").
         cta: 'linear-gradient(90deg, #a74ae5 0%, #fd991f 100%)',
-        // Icon chips — LINEAR 129deg #a74ae5 -> #ff9d00
+        // Icon chips — LINEAR 129deg #a74ae5 -> #ff9d00 (kept: small accent badges, not surfaces)
         chip: 'linear-gradient(129deg, #a74ae5 0%, #ff9d00 100%)',
-        // Step cards — LINEAR 180deg #a74ae56b -> #ff9d0059
-        step: 'linear-gradient(180deg, rgba(167,74,229,0.42) 0%, rgba(255,157,0,0.35) 100%)',
-        // Section washes
-        'wash-about': 'linear-gradient(180deg, #101010 0%, #332001 100%)',
-        'wash-dim': 'linear-gradient(180deg, #101010 0%, #130c02 100%)',
-        'wash-up': 'linear-gradient(180deg, #332001 0%, #070707 100%)',
-        'wash-footer': 'linear-gradient(90deg, #050505 0%, #332001 100%)',
+        // Step cards — flattened from a purple/orange wash to match the other card
+        // treatments (About, Experiences) for one consistent black-card style.
+        step: 'linear-gradient(180deg, #141414 0%, #101010 100%)',
+        // Section washes — flattened to near-black; a whisper of warmth remains at
+        // the transition edge instead of a visible amber bleed across the section.
+        'wash-about': 'linear-gradient(180deg, #0a0a0a 0%, #120c04 100%)',
+        'wash-dim': 'linear-gradient(180deg, #0a0a0a 0%, #0c0a05 100%)',
+        'wash-up': 'linear-gradient(180deg, #120c04 0%, #070707 100%)',
+        'wash-footer': 'linear-gradient(90deg, #050505 0%, #0f0a03 100%)',
         // Inner pages — RADIAL 135deg #080806 -> #311e01
         'wash-diag': 'linear-gradient(135deg, #080806 0%, #311e01 100%)',
         // Card / panel washes
         'exp-bloom': 'radial-gradient(circle at 50% 0%, rgba(255,106,31,0.13) 0%, rgba(255,106,31,0) 60%)',
-        'vip-panel': 'radial-gradient(circle at 50% 50%, rgba(167,74,229,0.12) 0%, rgba(167,74,229,0.11) 60%)',
+        // VIP panels — flattened to the same black-card style as everything else.
+        'vip-panel': 'linear-gradient(180deg, #141414 0%, #101010 100%)',
       },
       keyframes: {
         'scroll-dot': {

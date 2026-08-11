@@ -82,24 +82,24 @@ export default function HowItWorks() {
         <div className="mt-s60 grid gap-x-s169 gap-y-s91 md:grid-cols-2">
           {STEPS.map((s, i) => (
             <Reveal key={s.n} delay={0.08 * i}>
-              {/* 665x415 group — ring at 0,0, card inset 65/65 */}
-              <article className="relative pl-[9.774%] pt-[9.774%]">
-                <div className="absolute left-0 top-0 z-10 grid aspect-square w-[19.549%] place-items-center">
+              {/* Capped narrower than the Figma 665px group — client asked for
+                  smaller cards here specifically. */}
+              <article className="relative max-w-[480px] pl-[9.774%] pt-[9.774%]">
+                <div className="absolute left-0 top-0 z-10 grid aspect-square w-[17%] place-items-center">
                   <Ring id={s.n} />
-                  <span className="absolute font-title text-f32 font-semibold leading-none text-white/70">{s.n}</span>
+                  <span className="absolute font-title text-f24 font-semibold leading-none text-white/70">{s.n}</span>
                 </div>
 
-                <div className="flex flex-col items-center rounded-r32 bg-step pb-[13.5%] pt-[8.333%] text-center transition-transform duration-500 hover:-translate-y-1.5">
-                  {/* 108/600 = 18% */}
-                  <span className="grid aspect-square w-[18%] place-items-center rounded-full border border-white/[0.16] bg-chip">
+                <div className="flex flex-col items-center rounded-r24 bg-step pb-[9%] pt-[6.5%] text-center transition-transform duration-500 hover:-translate-y-1.5">
+                  <span className="grid aspect-square w-[15%] place-items-center rounded-full border border-white/[0.16] bg-chip">
                     <Icon name={s.icon} size="37%" />
                   </span>
 
                   <div className="mt-[3.333%] flex flex-col items-center gap-[3.333%]">
-                    <h3 className="max-w-[92%] py-s8 font-display text-f30 font-bold leading-[1.208] text-white">
+                    <h3 className="max-w-[92%] py-s8 font-display text-f24 font-bold leading-[1.25] text-white">
                       {s.title}
                     </h3>
-                    <p className="max-w-[72%] font-body text-f20 leading-[1.15] text-white">{s.copy}</p>
+                    <p className="max-w-[72%] font-body text-f16 leading-[1.3] text-white/80">{s.copy}</p>
                   </div>
                 </div>
               </article>
