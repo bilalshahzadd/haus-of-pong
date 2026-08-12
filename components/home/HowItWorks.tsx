@@ -83,11 +83,15 @@ export default function HowItWorks() {
           {STEPS.map((s, i) => (
             <Reveal key={s.n} delay={0.08 * i}>
               {/* Capped narrower than the Figma 665px group — client asked for
-                  smaller cards here specifically. */}
-              <article className="relative max-w-[480px] pl-[9.774%] pt-[9.774%]">
-                <div className="absolute left-0 top-0 z-10 grid aspect-square w-[17%] place-items-center">
+                  smaller cards here specifically. The ring is sized in fixed px
+                  (not %) and the card offset is exactly half that size, so the
+                  ring is guaranteed to sit centred on the card's corner — with
+                  a %-based offset it inherits the grid cell's width instead of
+                  the ring's, and the two only overlapped by a sliver. */}
+              <article className="relative max-w-[480px] pl-[36px] pt-[36px]">
+                <div className="absolute left-0 top-0 z-10 grid h-[72px] w-[72px] place-items-center">
                   <Ring id={s.n} />
-                  <span className="absolute font-title text-f24 font-semibold leading-none text-white/70">{s.n}</span>
+                  <span className="absolute font-title text-f20 font-semibold leading-none text-white/70">{s.n}</span>
                 </div>
 
                 <div className="flex flex-col items-center rounded-r24 bg-step pb-[9%] pt-[6.5%] text-center transition-transform duration-500 hover:-translate-y-1.5">

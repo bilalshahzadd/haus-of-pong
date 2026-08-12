@@ -73,7 +73,11 @@ export default function About() {
             </Reveal>
 
             <Reveal delay={0.24}>
-              <div className="relative mt-s16 aspect-[596/420] w-full overflow-hidden rounded-r32">
+              {/* The source photo is portrait (768x1024). The old 596:420 landscape
+                  box forced a heavy crop that read as zoomed way into her face —
+                  this box is close to the photo's own ratio so it shows almost
+                  the whole frame instead. */}
+              <div className="relative mt-s16 aspect-[4/5] w-full overflow-hidden rounded-r32">
                 <Image
                   src="/images/community-tableside.jpg"
                   alt="A player resting by the net, paddle in hand, at Haus of Pong"
