@@ -5,22 +5,27 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { Menu, X } from 'lucide-react'
-import { CtaButton } from './ui'
+import { BookButton } from './ui'
 
 /**
  * Header (node 2103:1458) — 1920x150, 200px gutters, fill #050505b2 with a
  * 24px backdrop blur and a #ffffff14 hairline underneath.
  * Logo 119x119. Nav links Manrope 400 / 20 / lh 20, active #fd991f,
  * resting #ffffff99, each with 8/16 padding and a 4px gap.
+ *
+ * "Locations" is singular — there is one lounge, and the plural read as though
+ * a location picker sat behind it. Pricing, Replays and FAQ were promoted into
+ * the bar because they are what a first-time visitor actually arrives looking
+ * for; Experiences, Gallery and the app section stay reachable from the footer.
  */
 
 const NAV = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/#about' },
-  { label: 'Experiences', href: '/#experiences' },
-  { label: 'Locations', href: '/#locations' },
-  { label: 'Gallery', href: '/#gallery' },
-  { label: 'Get the App', href: '/#app' },
+  { label: 'Replays', href: '/#replays' },
+  { label: 'Pricing', href: '/#pricing' },
+  { label: 'Location', href: '/#location' },
+  { label: 'FAQ', href: '/#faq' },
   { label: 'Contact Us', href: '/contact' },
 ]
 
@@ -45,7 +50,7 @@ export default function Header() {
             <Link
               key={item.label}
               href={item.href}
-              className={`px-s16 py-s8 font-body text-f20 leading-none transition-colors duration-200 hover:text-white ${
+              className={`px-s12 py-s8 font-body text-f18 leading-none transition-colors duration-200 hover:text-white ${
                 isActive(item) ? 'text-orange-400' : 'text-white/60'
               }`}
             >
@@ -55,12 +60,13 @@ export default function Header() {
         </nav>
 
         <div className="hidden xl:block">
-          <CtaButton href="/contact">Book your table</CtaButton>
+          <BookButton />
         </div>
 
         <button
           type="button"
           aria-label={open ? 'Close menu' : 'Open menu'}
+          aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
           className="grid h-11 w-11 place-items-center rounded-full border border-white/15 text-white xl:hidden"
         >
@@ -80,9 +86,7 @@ export default function Header() {
                 {item.label}
               </Link>
             ))}
-            <CtaButton href="/contact" className="mt-4 w-fit">
-              Book your table
-            </CtaButton>
+            <BookButton className="mt-4 w-fit" />
           </nav>
         </div>
       )}

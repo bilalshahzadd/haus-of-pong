@@ -2,7 +2,8 @@
 
 import { useState } from 'react'
 import Reveal from '../Reveal'
-import { CtaButton, GhostButton, Icon, StatusPill } from '../ui'
+import { BookButton, GhostButton, Icon, SocialLinks, StatusPill } from '../ui'
+import { ADDRESS, DIRECTIONS_URL, EMAIL, EMAIL_HREF, HOURS } from '@/lib/site'
 
 /**
  * Visit / VIP (node 2296:1339) — content band 1540 wide (830 + 30 gap + 680).
@@ -35,7 +36,7 @@ export default function VisitVip() {
 
               {/* Live Google Maps embed in place of the 680x362 static map from Figma.
                   The address/heading block that used to sit above this was dropped —
-                  it repeated what the Locations section already shows in full. */}
+                  it repeated what the Location section already shows in full. */}
               <div className="relative mt-s30 aspect-[680/362] w-full overflow-hidden rounded-r24 border border-white/[0.07]">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3249.408375138811!2d-97.50972159999999!3d35.4694386!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x87b217aa3c6b8ef3%3A0x9741f49689538779!2sHaus%20of%20Pong!5e0!3m2!1sen!2s!4v1785477291626!5m2!1sen!2s"
@@ -48,10 +49,8 @@ export default function VisitVip() {
               </div>
 
               <div className="mt-s30 flex flex-wrap gap-s30 pt-s8">
-                <CtaButton href="/contact">Book your table</CtaButton>
-                <GhostButton href="https://maps.google.com/?q=209+N.+Walnut+Ave+Oklahoma+City">
-                  Get Directions
-                </GhostButton>
+                <BookButton />
+                <GhostButton href={DIRECTIONS_URL}>Get Directions</GhostButton>
               </div>
             </div>
           </Reveal>
@@ -60,34 +59,50 @@ export default function VisitVip() {
           <div className="flex flex-col gap-[1.4948vw] max-xl:gap-6 xl:w-[44.16%]">
             <Reveal delay={0.1}>
               <div className="rounded-r32 bg-vip-panel px-s50 py-s30">
-                <div className="flex items-center gap-s20 pt-s24">
-                  <span className="grid aspect-square w-[8.1%] min-w-[36px] max-w-[44px] shrink-0 place-items-center rounded-full border border-white/[0.16]">
-                    <Icon name="contact-call" size="40%" />
-                  </span>
-                  <div>
-                    <p className="font-body text-f12 uppercase leading-none tracking-[0.22em] text-white/45">Call</p>
-                    <a
-                      href="tel:+12345678901"
-                      className="mt-s8 block font-body text-f20 leading-none text-white transition-colors hover:text-orange"
-                    >
-                      +1 234 567 8901
-                    </a>
-                  </div>
-                </div>
-
-                <div className="mt-s30 flex items-center gap-s20 border-t border-white/[0.08] pt-s24">
+                {/* No phone row: the lounge is unstaffed, so a published number
+                    would ring nobody. Email is the real channel. */}
+                <div className="flex items-start gap-s20 pt-s24">
                   <span className="grid aspect-square w-[8.1%] min-w-[36px] max-w-[44px] shrink-0 place-items-center rounded-full border border-white/[0.16]">
                     <Icon name="contact-email" size="40%" />
                   </span>
                   <div>
                     <p className="font-body text-f12 uppercase leading-none tracking-[0.22em] text-white/45">Email</p>
                     <a
-                      href="mailto:abc@domain.com"
-                      className="mt-s8 block font-body text-f20 leading-none text-white transition-colors hover:text-orange"
+                      href={EMAIL_HREF}
+                      className="mt-s8 block break-all font-body text-f20 leading-tight text-white transition-colors hover:text-orange"
                     >
-                      abc@domain.com
+                      {EMAIL}
                     </a>
                   </div>
+                </div>
+
+                <div className="mt-s30 flex items-start gap-s20 border-t border-white/[0.08] pt-s24">
+                  <span className="grid aspect-square w-[8.1%] min-w-[36px] max-w-[44px] shrink-0 place-items-center rounded-full border border-white/[0.16]">
+                    <Icon name="contact-visit" size="40%" />
+                  </span>
+                  <div>
+                    <p className="font-body text-f12 uppercase leading-none tracking-[0.22em] text-white/45">Visit</p>
+                    <p className="mt-s8 font-body text-f16 leading-[1.5] text-white">
+                      {ADDRESS.building}
+                      <br />
+                      {ADDRESS.street} {ADDRESS.suite}, {ADDRESS.city}, {ADDRESS.state} {ADDRESS.zip}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-s30 flex items-start gap-s20 border-t border-white/[0.08] pt-s24">
+                  <span className="grid aspect-square w-[8.1%] min-w-[36px] max-w-[44px] shrink-0 place-items-center rounded-full border border-white/[0.16]">
+                    <Icon name="contact-hours" size="40%" />
+                  </span>
+                  <div>
+                    <p className="font-body text-f12 uppercase leading-none tracking-[0.22em] text-white/45">Hours</p>
+                    <p className="mt-s8 font-body text-f16 leading-[1.5] text-white">{HOURS}</p>
+                  </div>
+                </div>
+
+                <div className="mt-s30 border-t border-white/[0.08] pt-s24">
+                  <p className="font-body text-f12 uppercase leading-none tracking-[0.22em] text-white/45">Follow</p>
+                  <SocialLinks size={40} className="mt-s16" />
                 </div>
               </div>
             </Reveal>
@@ -123,7 +138,7 @@ export default function VisitVip() {
                     <input
                       id="vip-email"
                       type="email"
-                      placeholder="abc@domain.com"
+                      placeholder="you@email.com"
                       className="mt-s12 w-full bg-transparent font-body text-f16 text-white placeholder:text-white/30 focus:outline-none"
                     />
                   </div>

@@ -2,19 +2,24 @@
 
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { CtaButton, GhostButton, StatusPill } from '../ui'
+import { BookButton, GhostButton, StatusPill } from '../ui'
+import { TABLE_COUNT } from '@/lib/site'
 
 /**
  * Hero (node 2103:979) — 1920x1200, 200px gutters, content padded 150 top/bottom.
- * Left column 943 wide (copy block 896x520, V gap 30), paddle 412x412 at x=1299.
- * Stats sit under a #ffffff14 top border with 30px of padding and a 50px gap.
  * Two blurred orbs: 384 #ff6a1f33 blur 120 top-left, 448 #8b3fff40 blur 140 bottom-right.
+ *
+ * The copy leads with the positioning claim rather than burying it: this is a
+ * fully automated, self-serve lounge, and that is the single fact a first-time
+ * visitor most needs before anything else on the page makes sense. The old
+ * "curated hospitality" line was removed for the same reason — it implied a
+ * host and a bar that do not exist here.
  */
 
 const STATS = [
-  { value: '04', label: 'Premium Tables' },
-  { value: '24/7', label: 'Booking via App' },
-  { value: '1', label: 'Iconic Address' },
+  { value: String(TABLE_COUNT).padStart(2, '0'), label: 'Tournament Tables' },
+  { value: '24/7', label: 'Self-Serve Access' },
+  { value: '0', label: 'Front Desks to Clear' },
 ]
 
 const ease = [0.22, 1, 0.36, 1] as const
@@ -41,9 +46,7 @@ export default function Hero() {
           with the viewport instead of pinning to 1200 on every desktop. */}
       <div className="shell relative flex min-h-[clamp(640px,62.5vw,1200px)] flex-col justify-center py-s150">
         <div className="flex items-center max-xl:flex-col max-xl:items-start">
-          {/* Copy column — client asked to drop the juggling paddle animation, so
-              this now runs full width instead of sharing the row with it. */}
-          <div className="w-full max-w-[820px]">
+          <div className="w-full max-w-[860px]">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
@@ -68,14 +71,30 @@ export default function Hero() {
               <span className="block text-orange-400">Repeat.</span>
             </motion.h1>
 
+            {/* The positioning claim, set as its own line at heading scale with a
+                gradient rule beside it — the client asked for this to be the
+                thing you cannot miss, so it is not folded into body copy. */}
             <motion.p
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2, ease }}
-              className="mt-s30 max-w-[576px] font-body text-f16 leading-[1.8] text-white/60"
+              transition={{ duration: 0.8, delay: 0.18, ease }}
+              className="mt-s30 flex items-center gap-s16"
             >
-              A premium ping pong lounge in Downtown Oklahoma City. Tournament tables, curated hospitality, and a
-              members-grade room that stays open around the clock.
+              <span className="hidden h-[2px] w-[3.5vw] max-w-[64px] shrink-0 rounded-full bg-cta sm:block" />
+              <span className="font-display text-f24 font-bold leading-[1.3] text-white">
+                Oklahoma City’s first <span className="text-orange-400">fully automated</span> ping pong lounge.
+              </span>
+            </motion.p>
+
+            <motion.p
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.24, ease }}
+              className="mt-s24 max-w-[620px] font-body text-f16 leading-[1.8] text-white/60"
+            >
+              No staff, no front desk, no waiting on anyone. Book your table online, get your access instructions,
+              and the door unlocks for you — any hour of any day. {TABLE_COUNT} tournament-grade tables, entirely
+              self-serve.
             </motion.p>
 
             <motion.div
@@ -84,8 +103,8 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.3, ease }}
               className="mt-s30 flex flex-wrap gap-s30"
             >
-              <CtaButton href="/contact">Book your table</CtaButton>
-              <GhostButton href="/venue-details">Explore the Haus</GhostButton>
+              <BookButton />
+              <GhostButton href="/#how-it-works">See how it works</GhostButton>
             </motion.div>
 
             {/* Stats — 64px above, then a hairline with 30px padding and a 50px gap */}

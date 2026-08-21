@@ -1,9 +1,10 @@
 'use client'
 
-import { useState } from 'react'
-import Link from 'next/link'
+import { useEffect, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 import Reveal from './Reveal'
-import { Icon } from './ui'
+import { Icon, SocialLinks } from './ui'
+import { ADDRESS, DIRECTIONS_URL, EMAIL, EMAIL_HREF, HOURS, WAIVER } from '@/lib/site'
 
 /**
  * Contact body (node 2167:267) — 1520 band, H gap 60: a 673 copy column and a
@@ -13,14 +14,22 @@ import { Icon } from './ui'
  * Fields: r8, #35353480, 1px #ffffff1a, 56 tall. Submit 668x60 gradient, label #301e01.
  */
 
-const DETAILS = [
-  { icon: 'contact-visit', label: 'Visit', value: ['209 N. Walnut Ave. Suite 102', 'Oklahoma City, OK 73104'] },
-  { icon: 'contact-call', label: 'Call', value: ['+1 234 567 8901'], href: 'tel:+12345678901' },
-  { icon: 'contact-email', label: 'Email', value: ['abc@domain.com'], href: 'mailto:abc@domain.com' },
-  { icon: 'contact-hours', label: 'Hours', value: ['Open 24/7 by reservation'] },
+const DETAILS: { icon: string; label: string; value: string[]; href?: string }[] = [
+  { icon: 'contact-visit', label: 'Visit', value: ADDRESS.lines, href: DIRECTIONS_URL },
+  // No phone row: the lounge is unstaffed, so the +1 234 567 8901 placeholder
+  // that used to sit here had no real number behind it to replace.
+  { icon: 'contact-email', label: 'Email', value: [EMAIL], href: EMAIL_HREF },
+  { icon: 'contact-hours', label: 'Hours', value: [HOURS] },
+  { icon: 'icon-waiver', label: 'Waiver', value: ['Accepted at booking'], href: WAIVER.href },
 ]
 
-const SUBJECTS = ['Table Booking', 'Corporate Event', 'Private Hire', 'League Enquiry', 'Something Else']
+const SUBJECTS = [
+  'Table Booking',
+  'Private & Corporate Events',
+  'League Enquiry',
+  'Replays & Game Clips',
+  'Something Else',
+]
 
 /* Geist 600 / 12 / lh 12 / ls 1.20 / uppercase / #dac2ad */
 const fieldLabel = 'font-geist text-f12 font-semibold uppercase leading-none tracking-[0.1em] text-[#dac2ad]'
@@ -39,6 +48,21 @@ function readHubspotCookie() {
 export default function ContactBody() {
   const [status, setStatus] = useState<Status>('idle')
   const [error, setError] = useState('')
+
+  /**
+   * Booking CTAs across the site link here as ?subject=Table+Booking, so the
+   * form opens already set to what the visitor clicked rather than making them
+   * find it in the dropdown. Matching is case-insensitive and falls back to the
+   * first subject, so an unknown value can never leave the select empty.
+   */
+  const searchParams = useSearchParams()
+  const requested = searchParams.get('subject')
+  const matched = SUBJECTS.find((s) => s.toLowerCase() === requested?.trim().toLowerCase())
+  const [subject, setSubject] = useState(SUBJECTS[0])
+
+  useEffect(() => {
+    if (matched) setSubject(matched)
+  }, [matched])
 
   const sending = status === 'sending'
 
@@ -88,14 +112,14 @@ export default function ContactBody() {
           <div className="flex flex-col gap-s24">
             <Reveal>
               <p className="font-body text-f12 uppercase leading-[1.33] tracking-[0.28em] text-orange">
-                Contact us / 06
+                Contact us
               </p>
             </Reveal>
 
             <Reveal delay={0.08}>
               {/* Space Grotesk 400 / 64 / lh 64 / ls -1.92 */}
               <h2 className="font-display text-f64 font-normal leading-none tracking-[-0.03em] text-white">
-                Say hello, book a table,
+                Request a booking,
                 <br />
                 or <span className="text-orange">plan the takeover.</span>
               </h2>
@@ -115,8 +139,16 @@ export default function ContactBody() {
                     </dt>
                     <dd className="mt-s8 font-display text-f18 leading-[1.556] text-white">
                       {href ? (
-                        <a href={href} className="transition-colors hover:text-orange">
-                          {value[0]}
+                        <a
+                          href={href}
+                          {...(href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                          className="block transition-colors hover:text-orange"
+                        >
+                          {value.map((l) => (
+                            <span key={l} className="block">
+                              {l}
+                            </span>
+                          ))}
                         </a>
                       ) : (
                         value.map((l) => (
@@ -133,17 +165,9 @@ export default function ContactBody() {
           </dl>
 
           <Reveal delay={0.36}>
-            <div className="flex gap-s12 pt-s16">
-              {['social-instagram', 'social-twitter', 'social-facebook'].map((s) => (
-                <Link
-                  key={s}
-                  href="#"
-                  aria-label="Social profile"
-                  className="grid h-11 w-11 place-items-center rounded-full border border-white/[0.16] transition-colors hover:border-orange/60"
-                >
-                  <Icon name={s} size={16} />
-                </Link>
-              ))}
+            <div className="pt-s16">
+              <p className="font-body text-f12 uppercase leading-[1.33] tracking-[0.22em] text-white/40">Follow</p>
+              <SocialLinks className="mt-s16" />
             </div>
           </Reveal>
         </div>
@@ -151,10 +175,15 @@ export default function ContactBody() {
         {/* Form panel — 750/1520 */}
         <Reveal delay={0.18} className="xl:w-[49.34%] xl:self-start xl:pt-[6%]">
           <form
+            id="booking-form"
             onSubmit={handleSubmit}
             noValidate
-            className="rounded-r24 border border-white/20 bg-[#111111b2] p-s40 backdrop-blur-[20px]"
+            className="scroll-mt-header rounded-r24 border border-white/20 bg-[#111111b2] p-s40 backdrop-blur-[20px]"
           >
+            <p className="mb-s30 font-body text-f14 leading-[1.643] text-white/60">
+              Tell us the date, time and session length you want and we’ll confirm your table by email, along with
+              the access instructions and the waiver.
+            </p>
             {/* Honeypot — off-screen rather than display:none, which some bots skip.
                 Field name avoids "company"/"website"/"url" on purpose: those words make
                 browser autofill (Chrome/Safari saved profiles) silently fill this even
@@ -201,7 +230,14 @@ export default function ContactBody() {
                 <label htmlFor="subject" className={fieldLabel}>
                   Subject
                 </label>
-                <select id="subject" name="subject" disabled={sending} className={`${field} appearance-none`}>
+                <select
+                  id="subject"
+                  name="subject"
+                  value={subject}
+                  onChange={(e) => setSubject(e.target.value)}
+                  disabled={sending}
+                  className={`${field} appearance-none`}
+                >
                   {SUBJECTS.map((s) => (
                     <option key={s} value={s} className="bg-ink-700">
                       {s}

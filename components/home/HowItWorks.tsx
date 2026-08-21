@@ -1,5 +1,6 @@
 import Reveal from '../Reveal'
-import { Eyebrow, Icon } from '../ui'
+import { BookButton, Eyebrow, GhostButton, Icon } from '../ui'
+import { WAIVER } from '@/lib/site'
 
 /**
  * How it works (node 2208:593) — pad 140/200, gap 60, wash 180deg #101010 -> #130c02.
@@ -20,20 +21,30 @@ import { Eyebrow, Icon } from '../ui'
  */
 
 const STEPS = [
-  { n: '01', icon: 'step-book-table', title: 'Book your table', copy: 'Select a date and time online.' },
+  {
+    n: '01',
+    icon: 'step-book-table',
+    title: 'Book',
+    copy: 'Choose your date, time and session length online. Takes about a minute.',
+  },
   {
     n: '02',
     icon: 'step-access-code',
-    title: 'Receive your access code',
-    copy: 'Your private entry code is sent automatically.',
+    title: 'Get Access',
+    copy: 'Your access instructions arrive automatically as soon as the booking is confirmed.',
   },
   {
     n: '03',
     icon: 'step-unlock',
-    title: 'Unlock and play',
-    copy: 'Enter the lounge and go directly to your reserved table.',
+    title: 'Unlock',
+    copy: 'Arrive at Suite 102 and let yourself in. No host, no check-in, no waiting.',
   },
-  { n: '04', icon: 'step-serve', title: 'Serve. Spin. Repeat.', copy: 'Play casually, compete or join a league.' },
+  {
+    n: '04',
+    icon: 'step-serve',
+    title: 'Play',
+    copy: 'Head straight to your table. Paddles and balls are already there.',
+  },
 ]
 
 /**
@@ -64,9 +75,9 @@ export default function HowItWorks() {
       <div className="hairline" />
       <div className="shell section-y">
         {/* Single 434-wide column, V gap 24 */}
-        <div className="flex max-w-[434px] flex-col gap-s24">
+        <div className="flex max-w-[560px] flex-col gap-s24">
           <Reveal>
-            <Eyebrow>How it works / 02</Eyebrow>
+            <Eyebrow>How it works / 04</Eyebrow>
           </Reveal>
           <Reveal delay={0.08}>
             <h2 className="h-display">How it works.</h2>
@@ -74,7 +85,7 @@ export default function HowItWorks() {
           <Reveal delay={0.16}>
             {/* Manrope 400 / 16 / lh 33 / ls 3.36 / uppercase */}
             <p className="font-body text-f16 uppercase leading-[2.06] tracking-[0.21em] text-white">
-              Complete the process in just a few simple steps and enjoy a fast, hassle-free experience.
+              Book → Get Access → Unlock → Play. Four steps, start to finish, with nobody to wait on.
             </p>
           </Reveal>
         </div>
@@ -110,6 +121,28 @@ export default function HowItWorks() {
             </Reveal>
           ))}
         </div>
+
+        {/* Booking is the action this whole section exists to prompt, and the
+            waiver is stated here rather than sprung on a guest at the door. */}
+        <Reveal delay={0.3}>
+          <div className="mt-s60 flex flex-col gap-s24 rounded-r32 border border-white/[0.08] bg-ink-600 p-s40 xl:flex-row xl:items-center xl:justify-between">
+            <div className="flex items-start gap-s20">
+              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-white/[0.16]">
+                <Icon name="icon-waiver" size={16} />
+              </span>
+              <div>
+                <h3 className="font-display text-f18 font-bold leading-[1.4] text-white">Before your first serve</h3>
+                <p className="mt-s8 max-w-[560px] font-body text-f14 leading-[1.643] text-white/60">
+                  {WAIVER.summary}
+                </p>
+              </div>
+            </div>
+            <div className="flex shrink-0 flex-wrap gap-s16">
+              <BookButton />
+              <GhostButton href={WAIVER.href}>Read the waiver</GhostButton>
+            </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   )

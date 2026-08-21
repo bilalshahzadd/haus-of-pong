@@ -41,13 +41,29 @@ const jakarta = Plus_Jakarta_Sans({
 })
 
 export const metadata: Metadata = {
-  title: 'Haus of Pong — Premium Ping Pong Lounge, Downtown OKC',
+  metadataBase: new URL('https://haus-of-pong.vercel.app'),
+  title: 'Haus of Pong — Oklahoma City’s First Fully Automated Ping Pong Lounge',
   description:
-    'A premium ping pong lounge in Downtown Oklahoma City. Tournament tables, curated hospitality, and a members-grade room that stays open around the clock.',
+    'Oklahoma City’s first fully automated ping pong lounge. Four tournament tables inside the Aloft Hotel in Downtown OKC — self-serve, reservation-only, open 24/7. Book online, the door unlocks for you.',
+  keywords: [
+    'ping pong Oklahoma City',
+    'table tennis OKC',
+    'automated ping pong lounge',
+    'Downtown OKC things to do',
+    'private events OKC',
+  ],
   openGraph: {
     title: 'Haus of Pong — Serve. Spin. Repeat.',
-    description: 'Premium ping pong lounge in Downtown Oklahoma City. Open 24/7 by reservation.',
+    description:
+      'Oklahoma City’s first fully automated ping pong lounge. Self-serve, reservation-only, open 24/7 in Downtown OKC.',
     type: 'website',
+    locale: 'en_US',
+    siteName: 'Haus of Pong',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Haus of Pong — Serve. Spin. Repeat.',
+    description: 'Oklahoma City’s first fully automated ping pong lounge. Open 24/7 by reservation.',
   },
 }
 

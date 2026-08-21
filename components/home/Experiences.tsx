@@ -11,19 +11,31 @@ import { Eyebrow, Icon } from '../ui'
  */
 
 const CARDS = [
-  { icon: 'exp-casual-play', title: 'Casual Play', copy: 'Walk-ins welcome. Grab a paddle, grab a drink.' },
+  {
+    icon: 'exp-casual-play',
+    title: 'Casual Play',
+    // Was "Walk-ins welcome. Grab a paddle, grab a drink." — the room is
+    // reservation-only and unstaffed, so both halves of that were wrong.
+    copy: 'Book a table, let yourself in, and play. Paddles and balls are waiting.',
+  },
   {
     icon: 'exp-corporate-events',
     title: 'Corporate Events',
     copy: 'Offsites and team-builders with a competitive edge.',
   },
-  { icon: 'exp-birthday', title: 'Birthday Parties', copy: 'Private booths, bottles and bragging rights.' },
+  {
+    icon: 'exp-birthday',
+    title: 'Birthday Parties',
+    // Was "Private booths, bottles and bragging rights." — there are no booths
+    // and no bottle service here.
+    copy: 'Reserve the room, bring the group, and keep the replays.',
+  },
   {
     icon: 'exp-date-night',
     title: 'Date Night',
     copy: 'Serve up love, laughter, and a little friendly competition.',
   },
-  { icon: 'exp-friends-night', title: 'Friends Night Out', copy: 'The best-dressed rally in the city.' },
+  { icon: 'exp-friends-night', title: 'Friends Night Out', copy: 'The best-dressed rally in the city — at any hour.' },
   { icon: 'exp-league-nights', title: 'League Nights', copy: 'Weekly ladders with prizes and permanent glory.' },
 ]
 
@@ -34,7 +46,7 @@ export default function Experiences() {
       <div className="shell section-y">
         <div className="flex flex-col gap-s24">
           <Reveal>
-            <Eyebrow>Experiences / 03</Eyebrow>
+            <Eyebrow>Experiences / 02</Eyebrow>
           </Reveal>
           <Reveal delay={0.08}>
             <h2 className="h-display max-w-[626px]">

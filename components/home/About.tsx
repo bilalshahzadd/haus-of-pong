@@ -1,19 +1,33 @@
 import Image from 'next/image'
 import Reveal from '../Reveal'
-import { Eyebrow, Icon } from '../ui'
+import { Eyebrow, Icon, StoreBadge } from '../ui'
+import { APP_LIVE, TABLE_COUNT } from '@/lib/site'
 
 /**
  * About (node 2212:410) — pad 140/200, gap 60, wash 180deg #101010 -> #332001.
  * Inner grid 1520 wide, 64px gap: copy column 596, card column 860.
- * Cards 422x200 in a 2-up grid with a 16px gutter; r32, #161616, 1px #ffffff14,
- * pad 16/31.67, 48x48 gradient chip (r24, 1px #ffffff29).
+ * Cards 422x200 in a 2-up grid with a 16px gutter; r32, #161616, 1px #ffffff14.
+ *
+ * The feature set was re-cut around what "fully automated" actually means for a
+ * guest — entry, replays, and booking all happening without a person involved —
+ * because that is the promise the rest of the page rests on.
  */
 
 const FEATURES = [
   {
     icon: 'about-automated-entry',
-    title: 'Automated Entry',
-    copy: 'Skip the front desk — your code unlocks the door and your table.',
+    title: 'Fully Automated Entry',
+    copy: 'No staff, no front desk. Your booking unlocks the door at your reserved time.',
+  },
+  {
+    icon: 'about-online-reservations',
+    title: 'Self-Serve Booking',
+    copy: 'Pick your date, time and session length online in under a minute.',
+  },
+  {
+    icon: 'about-video-highlights',
+    title: 'Replays & Game Clips',
+    copy: 'Select gameplay is captured so you can save and share your best points.',
   },
   {
     icon: 'about-lounge-seating',
@@ -22,23 +36,13 @@ const FEATURES = [
   },
   {
     icon: 'about-league-play',
-    title: 'League Play',
-    copy: 'Weekly ladders with real stakes, for regulars and first-timers alike.',
+    title: 'Leagues & Tournaments',
+    copy: 'Ladders and events run through the year, for regulars and first-timers alike.',
   },
   {
     icon: 'about-corporate-events',
-    title: 'Corporate Events',
-    copy: 'Offsites and team-builders with a competitive edge.',
-  },
-  {
-    icon: 'about-private-bookings',
-    title: 'Private Bookings',
-    copy: 'Reserve the whole room for a birthday, a launch, or a night out.',
-  },
-  {
-    icon: 'about-date-night',
-    title: 'Date Night',
-    copy: 'Serve up love, laughter, and a little friendly competition.',
+    title: 'Private & Corporate',
+    copy: 'Birthdays, offsites and team-building, with the room to yourselves.',
   },
 ]
 
@@ -59,24 +63,25 @@ export default function About() {
 
             <Reveal delay={0.08}>
               <h2 className="h-display">
-                The home of competitive
+                Oklahoma City’s first
                 <br />
-                <span className="text-violet">social play.</span>
+                <span className="text-violet">fully automated</span>
+                <br />
+                ping pong lounge.
               </h2>
             </Reveal>
 
             <Reveal delay={0.16}>
               <p className="body-lg max-w-[541px] pt-s8">
-                Tournament-grade tables, a members-grade room, and a door that unlocks with your phone. This is
-                ping pong built for a night out — not a rec room.
+                {TABLE_COUNT} tournament-grade tables in Downtown OKC, running entirely on their own. There is no
+                host to check in with and no closing time to beat — you book, the door opens for you, and the room
+                is yours. Casual play, competition, date nights and groups, at any hour.
               </p>
             </Reveal>
 
             <Reveal delay={0.24}>
-              {/* The source photo is portrait (768x1024). The old 596:420 landscape
-                  box forced a heavy crop that read as zoomed way into her face —
-                  this box is close to the photo's own ratio so it shows almost
-                  the whole frame instead. */}
+              {/* The source photo is portrait (768x1024), so the box is close to
+                  the photo's own ratio rather than a heavy landscape crop. */}
               <div className="relative mt-s16 aspect-[4/5] w-full overflow-hidden rounded-r32">
                 <Image
                   src="/images/community-tableside.jpg"
@@ -105,25 +110,22 @@ export default function About() {
               </Reveal>
             ))}
 
-            {/* Card 10 — the store-badge tile that closes the grid */}
+            {/* Closing tile — the store badges. While the app is unreleased this
+                states plainly that booking needs no download, so nobody stalls
+                waiting for an app that isn't there yet. */}
             <Reveal delay={0.4}>
-              <article className={`${CARD} flex flex-col justify-center gap-s32`}>
+              <article className={`${CARD} flex flex-col justify-center gap-s16 sm:col-span-2`}>
                 <h3 className="font-display text-f20 font-bold leading-[1.4] text-white">
-                  Book faster with the app.
+                  {APP_LIVE ? 'Book faster with the app.' : 'No app required — book on the web.'}
                 </h3>
-                <div className="flex flex-wrap items-center gap-s16">
-                  <a
-                    href="#app"
-                    className="inline-flex items-center gap-2 rounded-pill bg-white px-4 py-2 font-body text-f12 font-semibold text-ink transition-transform duration-300 hover:scale-[1.03]"
-                  >
-                    <Icon name="brand-apple" size={14} /> App Store
-                  </a>
-                  <a
-                    href="#app"
-                    className="inline-flex items-center gap-2 rounded-pill bg-white px-4 py-2 font-body text-f12 font-semibold text-ink transition-transform duration-300 hover:scale-[1.03]"
-                  >
-                    <Icon name="brand-playstore" size={14} /> Google Play
-                  </a>
+                <p className="font-body text-f14 leading-[1.643] text-white/60">
+                  {APP_LIVE
+                    ? 'Reserve, get your access instructions and manage bookings from your phone.'
+                    : 'Everything works from this site today. The Haus of Pong app is on the way.'}
+                </p>
+                <div className="flex flex-wrap items-center gap-s12">
+                  <StoreBadge platform="ios" />
+                  <StoreBadge platform="android" />
                 </div>
               </article>
             </Reveal>

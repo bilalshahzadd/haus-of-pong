@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import PageHero from '@/components/PageHero'
 import Reveal from '@/components/Reveal'
+import { EMAIL } from '@/lib/site'
 
 /**
  * Privacy Policy (node 2177:923) — pad 250/200/250, wash 180deg #332001 -> #070707.
@@ -13,10 +14,11 @@ export const metadata: Metadata = {
 }
 
 const COPY = [
-  `Haus of Pong collects only what's needed to run your reservation: your name, email, and phone number when you book a table, join the VIP list, or send us a message. We use this information to confirm bookings, send your access code, and reach you about your visit — nothing else.`,
+  `Haus of Pong collects only what's needed to run your reservation: your name and email when you book a table, join the VIP list, or send us a message. We use this information to confirm bookings, send your access instructions, and reach you about your visit — nothing else.`,
   `We don't sell your information. It's shared only with the tools that keep the lounge running, like our booking and CRM systems, and only as far as needed to serve you.`,
   `Our site uses essential cookies to keep the booking flow working, and analytics cookies to understand how the site is used. You can control cookies through your browser at any time.`,
-  `If you'd like your information updated or removed, email us at abc@domain.com and we'll take care of it.`,
+  `The lounge is under video surveillance for security, and select gameplay is captured so guests can save and share replays. Footage is tied to the reservation it belongs to and is kept only as long as it is needed for security and for making your clips available.`,
+  `If you'd like your information or your recorded footage updated or removed, email us at ${EMAIL} and we'll take care of it.`,
 ]
 
 export default function PrivacyPolicyPage() {

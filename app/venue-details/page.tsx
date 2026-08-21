@@ -3,7 +3,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import PageHero from '@/components/PageHero'
 import Reveal from '@/components/Reveal'
-import { Icon } from '@/components/ui'
+import { GhostButton, Icon } from '@/components/ui'
+import { ADDRESS, AMENITIES, ARRIVAL, BOOKING, DIRECTIONS_URL, HOURS, TABLE_COUNT, WAIVER } from '@/lib/site'
 
 /**
  * Venue details (node 2167:570) — pad 250/200/200, wash 180deg #332001 -> #070707.
@@ -17,17 +18,9 @@ import { Icon } from '@/components/ui'
 
 export const metadata: Metadata = {
   title: 'Venue Details — Haus of Pong',
-  description: 'Find a Pod near you. Address, hours and amenities for the Haus of Pong lounge.',
+  description:
+    'Address, parking, entrance, hours and amenities for Haus of Pong — Oklahoma City’s first fully automated ping pong lounge.',
 }
-
-const AMENITIES = [
-  '2 table open pod',
-  'Paddles and balls',
-  'Video replays',
-  'Beverages and light snacks',
-  'Water fountain',
-  'WiFi',
-]
 
 const cardClass =
   'rounded-[30px] border border-white/[0.08] bg-[linear-gradient(90deg,#050505_0%,#332001_100%)] p-s50'
@@ -39,7 +32,10 @@ export default function VenueDetailsPage() {
     <div className="relative bg-wash-up">
       <div className="hairline" />
 
-      <PageHero title="Venue Details" subtitle="Find a Pod near you! If there isn’t one available, let us know." />
+      <PageHero
+        title="Venue Details"
+        subtitle="Everything you need to find us, get in, and play — parking, entrance, hours and what's in the room."
+      />
 
       <div className="shell relative pb-s140 pt-s50">
         {/* 1520x829 photograph, r30 */}
@@ -64,8 +60,9 @@ export default function VenueDetailsPage() {
                 <h2 className={serifHead}>Downtown Oklahoma City</h2>
 
                 <p className="mt-s30 font-body text-f18 leading-[1.611] text-white/60">
-                  A single 2-table pod in the heart of Downtown OKC — tournament tables, curated hospitality, and a
-                  door that unlocks with your phone the moment your reservation starts.
+                  {TABLE_COUNT} tournament-grade tables in the heart of Downtown OKC, inside the Aloft Hotel. The
+                  lounge is fully automated and entirely self-serve — no staff, no front desk, and a door that
+                  unlocks for you the moment your reservation starts.
                 </p>
 
                 <h3 className={`${serifHead} mt-s40`}>Venue</h3>
@@ -74,7 +71,9 @@ export default function VenueDetailsPage() {
                     <Icon name="contact-visit" size={16} />
                   </span>
                   <p className="font-display text-f18 leading-[1.556] text-white">
-                    209 N. Walnut Ave. Suite 102, Oklahoma City, OK 73104
+                    {ADDRESS.building}
+                    <br />
+                    {ADDRESS.street} {ADDRESS.suite}, {ADDRESS.city}, {ADDRESS.state} {ADDRESS.zip}
                   </p>
                 </div>
 
@@ -83,7 +82,26 @@ export default function VenueDetailsPage() {
                   <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-white/[0.16]">
                     <Icon name="contact-hours" size={16} />
                   </span>
-                  <p className="font-display text-f18 leading-[1.556] text-white">Open 24/7 by reservation</p>
+                  <p className="font-display text-f18 leading-[1.556] text-white">{HOURS}</p>
+                </div>
+
+                <h3 className={`${serifHead} mt-s40`}>Getting here</h3>
+                <ul className="mt-s20 flex flex-col gap-s24 border-t border-white/[0.08] pt-s24">
+                  {ARRIVAL.map((a) => (
+                    <li key={a.title} className="flex items-start gap-s20">
+                      <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-white/[0.16]">
+                        <Icon name={a.icon} size={16} />
+                      </span>
+                      <div>
+                        <p className="font-display text-f18 leading-[1.4] text-white">{a.title}</p>
+                        <p className="mt-s8 font-body text-f16 leading-[1.6] text-white/60">{a.copy}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-s30">
+                  <GhostButton href={DIRECTIONS_URL}>Get Directions</GhostButton>
                 </div>
               </section>
             </Reveal>
@@ -99,16 +117,32 @@ export default function VenueDetailsPage() {
                     </li>
                   ))}
                 </ul>
+
+                <h3 className={`${serifHead} mt-s40`}>Waiver</h3>
+                <div className="mt-s20 flex items-start gap-s20 border-t border-white/[0.08] pt-s24">
+                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-white/[0.16]">
+                    <Icon name="icon-waiver" size={16} />
+                  </span>
+                  <div>
+                    <p className="font-body text-f16 leading-[1.6] text-white/60">{WAIVER.summary}</p>
+                    <Link
+                      href={WAIVER.href}
+                      className="mt-s16 inline-block font-display text-f18 leading-[1.4] text-orange transition-colors hover:text-orange-300"
+                    >
+                      Read the waiver and facility rules →
+                    </Link>
+                  </div>
+                </div>
               </section>
             </Reveal>
 
             <Reveal delay={0.24}>
               <div className="flex justify-center pt-s40">
                 <Link
-                  href="/contact"
-                  className="inline-flex w-full max-w-[693px] items-center justify-center rounded-pill bg-cta py-s16 font-body text-f18 font-semibold text-[#301e01] transition-transform duration-300 hover:scale-[1.02]"
+                  href={BOOKING.href}
+                  className="inline-flex w-full max-w-[693px] items-center justify-center rounded-pill bg-cta py-s16 font-body text-f18 font-semibold text-white transition-transform duration-300 hover:scale-[1.02]"
                 >
-                  Book Now
+                  {BOOKING.label}
                 </Link>
               </div>
             </Reveal>

@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Reveal from '../Reveal'
-import { Eyebrow, Icon } from '../ui'
+import { BookButton, Eyebrow, Icon, StoreBadge } from '../ui'
+import { APP_LIVE } from '@/lib/site'
 
 /**
  * App (node 2103:1271) — 1920x846, fill #101010, content 1520 wide, H gap 64.
@@ -11,7 +12,7 @@ import { Eyebrow, Icon } from '../ui'
  * QR panel (#05050580, 1px #ffffff29, blur 12). Phones 221x461 and 308x461, r48.
  */
 
-const PERKS = ['Book tables in seconds', 'Join events & leagues', 'Manage reservations', 'Exclusive member offers']
+const PERKS = ['Book tables in seconds', 'Join events & leagues', 'Manage reservations', 'Save and share replays']
 
 export default function AppSection() {
   return (
@@ -26,21 +27,30 @@ export default function AppSection() {
           <div className="flex w-full flex-col gap-s22 xl:w-[67.8%]">
             <Reveal>
               {/* 12px here, not the usual 16 */}
-              <p className="font-body text-f12 uppercase leading-[1.33] tracking-[0.28em] text-orange">App / 06</p>
+              <p className="font-body text-f12 uppercase leading-[1.33] tracking-[0.28em] text-orange">App / 10</p>
             </Reveal>
 
             <Reveal delay={0.08}>
               <h2 className="max-w-[667px] font-display text-f64 font-normal leading-[1.11] tracking-[-0.0338em] text-white">
-                Book your table
+                {APP_LIVE ? 'Book your table' : 'The app is'}
                 <br />
-                through our <span className="text-orange">app</span>.
+                {APP_LIVE ? (
+                  <>
+                    through our <span className="text-orange">app</span>.
+                  </>
+                ) : (
+                  <>
+                    <span className="text-orange">coming soon</span>.
+                  </>
+                )}
               </h2>
             </Reveal>
 
             <Reveal delay={0.16}>
               <p className="max-w-[448px] pt-s8 font-body text-f16 leading-[1.625] text-white/60">
-                Skip the line. Book a table, grab your access code, and manage your reservation — all from your
-                phone.
+                {APP_LIVE
+                  ? 'Book a table, get your access instructions, and manage your reservation — all from your phone.'
+                  : 'You don’t need it to play. Everything below already works right here on the website — the app is simply the faster way to do it once it lands.'}
               </p>
             </Reveal>
 
@@ -62,44 +72,34 @@ export default function AppSection() {
 
             <Reveal delay={0.32}>
               <div className="flex flex-wrap items-center gap-s12 py-s20">
-                <a
-                  href="#"
-                  className="inline-flex items-center gap-s12 rounded-pill bg-white px-s24 py-[0.7292vw] text-ink transition-transform duration-300 hover:scale-[1.03] max-xl:py-3.5"
-                >
-                  <Icon name="brand-apple" size={21} className="h-[1.35em] w-auto" />
-                  <span className="leading-tight">
-                    <span className="block font-body text-f10 uppercase tracking-[0.08em] text-ink/60">
-                      Download on the
-                    </span>
-                    <span className="block font-display text-f16 font-bold">App Store</span>
-                  </span>
-                </a>
-
-                <a
-                  href="#"
-                  className="inline-flex items-center gap-s12 rounded-pill bg-white px-s24 py-[0.7292vw] text-ink transition-transform duration-300 hover:scale-[1.03] max-xl:py-3.5"
-                >
-                  <Icon name="brand-playstore" size={24} className="h-[1.35em] w-auto" />
-                  <span className="leading-tight">
-                    <span className="block font-body text-f10 uppercase tracking-[0.08em] text-ink/60">Get it on</span>
-                    <span className="block font-display text-f16 font-bold">Google Play</span>
-                  </span>
-                </a>
-
-                <div className="inline-flex items-center gap-s12 rounded-pill border border-white/[0.16] bg-[#05050580] px-s20 py-[0.7292vw] backdrop-blur-[12px] max-xl:py-3.5">
-                  <Icon name="icon-qr" size={32} className="h-[1.7em] w-auto" />
-                  <span className="leading-tight">
-                    <span className="block font-body text-f10 uppercase tracking-[0.08em] text-white/50">Scan to</span>
-                    <span className="block font-display text-f16 font-bold text-white">Download</span>
-                  </span>
-                </div>
+                {/* Badges are links only when the listing actually exists —
+                    StoreBadge reads APP in lib/site.ts and renders an inert,
+                    dimmed "Coming soon" chip otherwise. The QR panel that used
+                    to sit here was removed: it pointed at nothing. */}
+                <StoreBadge platform="ios" />
+                <StoreBadge platform="android" />
               </div>
             </Reveal>
+
+            {!APP_LIVE && (
+              <Reveal delay={0.36}>
+                <div className="flex flex-wrap items-center gap-s24 border-t border-white/[0.08] pt-s24">
+                  <p className="font-body text-f14 leading-[1.643] text-white/60">
+                    Book on the web in the meantime — it takes about a minute.
+                  </p>
+                  <BookButton />
+                </div>
+              </Reveal>
+            )}
           </div>
 
           {/* Phone pair — 490x492 group, second phone offset 182/32 at 80% opacity */}
-          <Reveal delay={0.2}>
-            <div className="relative mx-auto aspect-[490/492] w-full max-w-[490px] xl:w-[32.2%]">
+          {/* The width has to sit on the flex item itself. The inner box is
+              w-full over absolutely-positioned children, so its content width
+              is 0 — without an explicit basis here the whole phone pair
+              collapsed to nothing and neither screenshot ever rendered. */}
+          <Reveal delay={0.2} className="w-full shrink-0 xl:w-[32.2%]">
+            <div className="relative mx-auto aspect-[490/492] w-full max-w-[490px]">
               <div className="absolute left-0 top-0 w-[45.1%] overflow-hidden rounded-r48 border-[6px] border-black bg-black shadow-[0_30px_50px_-18px_rgba(0,0,0,0.9)]">
                 <Image
                   src="/images/app-phone-1.png"

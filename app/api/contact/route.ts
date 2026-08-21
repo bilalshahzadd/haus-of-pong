@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { EMAIL } from '@/lib/site'
 
 /**
  * Contact form -> HubSpot.
@@ -91,7 +92,7 @@ async function submitViaForms(p: Payload) {
         fields,
         context: {
           pageUri: p.pageUri || 'https://haus-of-pong.vercel.app/contact',
-          pageName: 'Contact Us — Haus of Pong',
+          pageName: 'Request a Booking — Haus of Pong',
           ...(p.hutk ? { hutk: p.hutk } : {}),
         },
       }),
@@ -200,7 +201,7 @@ export async function POST(request: Request) {
   if (!mode) {
     console.error('[contact] HubSpot is not configured — no credentials in env.')
     return NextResponse.json(
-      { error: 'The form is not connected yet. Please email abc@domain.com in the meantime.' },
+      { error: `The form is not connected yet. Please email ${EMAIL} in the meantime.` },
       { status: 503 },
     )
   }
@@ -212,7 +213,7 @@ export async function POST(request: Request) {
     // The visitor never sees HubSpot's raw error; it goes to the Vercel logs.
     console.error('[contact] submission failed:', err)
     return NextResponse.json(
-      { error: 'We could not send that just now. Please try again, or email abc@domain.com.' },
+      { error: `We could not send that just now. Please try again, or email ${EMAIL}.` },
       { status: 502 },
     )
   }

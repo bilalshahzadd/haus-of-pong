@@ -1,35 +1,30 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { Icon } from './ui'
+import { SocialLinks } from './ui'
+import { ADDRESS, BOOKING, EMAIL, EMAIL_HREF, HOURS, WAIVER } from '@/lib/site'
 
 /**
  * Footer (node 2103:1410) — 1920x460, wash 90deg #050505 -> #332001, top hairline.
  * Container 1520, pad 64 top/bottom, gap 64. Columns 736 / 344 / 344 with 48px gutters.
  * Headings Manrope 400 / 10 / ls 2.4 uppercase #ffffff66; links Manrope 400 / 14 / lh 20.
  * Socials are 36x36 r999 with a #ffffff14 border and 14px glyphs.
- * Bottom bar: 32px above a #ffffff14 rule, both labels Manrope 400 / 12.
  */
 
 const QUICK = [
-  { label: 'Home', href: '/' },
-  { label: 'About', href: '/#about' },
-  { label: 'Experience', href: '/#experiences' },
+  { label: 'How it works', href: '/#how-it-works' },
+  { label: 'Replays', href: '/#replays' },
+  { label: 'Pricing', href: '/#pricing' },
+  { label: 'Private Events', href: '/#events' },
+  { label: 'Location', href: '/#location' },
   { label: 'Gallery', href: '/#gallery' },
-  { label: 'Download App', href: '/#app' },
-  { label: 'Contact', href: '/contact' },
+  { label: 'FAQ', href: '/#faq' },
 ]
 
 const LEGAL = [
+  { label: 'Waiver & Facility Rules', href: WAIVER.href },
   { label: 'Privacy Policy', href: '/privacy-policy' },
-  { label: 'Terms', href: '/privacy-policy' },
-  { label: 'Cookies', href: '/privacy-policy' },
+  { label: 'Venue Details', href: '/venue-details' },
   { label: 'Contact', href: '/contact' },
-]
-
-const SOCIALS = [
-  { icon: 'social-instagram', label: 'Instagram' },
-  { icon: 'social-twitter', label: 'Twitter' },
-  { icon: 'social-facebook', label: 'Facebook' },
 ]
 
 const linkClass = 'font-body text-f14 leading-[1.43] text-white/60 transition-colors hover:text-orange'
@@ -44,14 +39,29 @@ export default function Footer() {
             <div className="relative h-logo w-logo overflow-hidden rounded-[18%]">
               <Image src="/images/logo.png" alt="Haus of Pong" fill sizes="119px" className="object-cover" />
             </div>
-            <p className="mt-s24 max-w-[426px] font-body text-f16 leading-[1.44] text-white/60">
-              A premium ping pong lounge in Down town Oklahoma City.
-              <br />
-              Come for the rally. Stay for the night.
+
+            {/* "Down town" was two words here. It is one. */}
+            <p className="mt-s24 max-w-[460px] font-body text-f16 leading-[1.44] text-white/60">
+              Oklahoma City’s first fully automated ping pong lounge — self-serve, reservation-only, and open
+              around the clock in Downtown OKC.
             </p>
+
             <p className="mt-s24 max-w-[420px] font-body text-f16 leading-[1.44] text-white/60">
-              209 N. Walnut Ave. Suite 102 · Oklahoma City, OK 73104
+              {ADDRESS.building}
+              <br />
+              {ADDRESS.street} {ADDRESS.suite} · {ADDRESS.city}, {ADDRESS.state} {ADDRESS.zip}
+              <br />
+              {HOURS}
             </p>
+
+            <a href={EMAIL_HREF} className={`${linkClass} mt-s16 inline-block text-f16`}>
+              {EMAIL}
+            </a>
+
+            <div className="mt-s24">
+              <h4 className={headClass}>Follow</h4>
+              <SocialLinks size={36} className="mt-s16" />
+            </div>
           </div>
 
           <div>
@@ -68,7 +78,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className={headClass}>Legal</h4>
+            <h4 className={headClass}>Visit</h4>
             <ul className="mt-s20 flex flex-col gap-s12">
               {LEGAL.map((l) => (
                 <li key={l.label}>
@@ -79,18 +89,12 @@ export default function Footer() {
               ))}
             </ul>
 
-            <div className="mt-s24 flex gap-s8 pt-s12">
-              {SOCIALS.map((s) => (
-                <Link
-                  key={s.label}
-                  href="#"
-                  aria-label={s.label}
-                  className="grid h-9 w-9 place-items-center rounded-full border border-white/[0.08] transition-colors hover:border-orange/50"
-                >
-                  <Icon name={s.icon} size={14} />
-                </Link>
-              ))}
-            </div>
+            <Link
+              href={BOOKING.href}
+              className="mt-s24 inline-flex items-center gap-s8 rounded-pill bg-cta px-6 py-3 font-body text-f14 font-semibold text-white transition-transform duration-300 hover:scale-[1.03]"
+            >
+              {BOOKING.label}
+            </Link>
           </div>
         </div>
 

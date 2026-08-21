@@ -51,7 +51,7 @@ export default function Gallery() {
       <div className="hairline" />
       <div className="shell section-y">
         <Reveal>
-          <Eyebrow>Gallery / 05</Eyebrow>
+          <Eyebrow>Gallery / 08</Eyebrow>
         </Reveal>
 
         <Reveal delay={0.08}>

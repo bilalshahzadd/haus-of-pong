@@ -65,6 +65,14 @@
     scroll-behavior: smooth;
   }
 
+  /* The header is fixed and up to 150px tall, so any in-page anchor has to
+     offset by its height or the target's heading lands underneath it. */
+  :target,
+  section[id],
+  [id='booking-form'] {
+    scroll-margin-top: calc(var(--header-h) + 16px);
+  }
+
   body {
     @apply bg-ink font-body text-white antialiased;
     overflow-x: hidden;

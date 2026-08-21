@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import type { ReactNode } from 'react'
+import { APP, BOOKING, SOCIALS } from '@/lib/site'
 
 /** Figma exports every glyph to /public/icons; they already carry their own colours. */
 export function Icon({
@@ -110,5 +111,101 @@ export function CircleIcon({ name, size = 16 }: { name: string; size?: number })
     <span className="grid h-[2.2917vw] max-h-[44px] min-h-[36px] w-[2.2917vw] min-w-[36px] max-w-[44px] shrink-0 place-items-center rounded-full border border-white/[0.16]">
       <Icon name={name} size={size} className="h-[36%] w-[36%]" />
     </span>
+  )
+}
+
+/**
+ * The primary booking CTA. Every "book a table" affordance on the site routes
+ * through this one component, so the day a real booking system exists only
+ * BOOKING in lib/site.ts changes — no hunting for stray hrefs.
+ */
+export function BookButton({ className = '', children }: { className?: string; children?: ReactNode }) {
+  return (
+    <CtaButton href={BOOKING.href} className={className}>
+      {children ?? BOOKING.label}
+    </CtaButton>
+  )
+}
+
+/**
+ * Instagram / TikTok / Facebook row. `size` is the circle diameter in px.
+ * Real profile links open in a new tab; nothing here is ever a dead `#`.
+ */
+export function SocialLinks({ size = 44, className = '' }: { size?: number; className?: string }) {
+  return (
+    <div className={`flex flex-wrap gap-s12 ${className}`}>
+      {SOCIALS.map((s) => (
+        <a
+          key={s.label}
+          href={s.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${s.label} — Haus of Pong`}
+          style={{ width: size, height: size }}
+          className="grid shrink-0 place-items-center rounded-full border border-white/[0.16] transition-colors duration-300 hover:border-orange/60"
+        >
+          <Icon name={s.icon} size={Math.round(size * 0.36)} />
+        </a>
+      ))}
+    </div>
+  )
+}
+
+/**
+ * App Store / Google Play badge.
+ *
+ * The store listings do not exist yet, so a badge is only a link when its
+ * platform is actually published. Until then it renders as a visibly inert
+ * "Coming soon" chip — dimmed, not white, `aria-disabled`, no hover lift and
+ * no href — so nobody taps a badge that leads nowhere. Flip the platform's
+ * `live` flag in lib/site.ts on launch and it becomes a real link.
+ */
+export function StoreBadge({ platform, className = '' }: { platform: 'ios' | 'android'; className?: string }) {
+  const config = APP[platform]
+  const meta =
+    platform === 'ios'
+      ? { icon: 'brand-apple', kicker: 'Download on the', name: 'App Store', size: 21 }
+      : { icon: 'brand-playstore', kicker: 'Get it on', name: 'Google Play', size: 24 }
+
+  const inner = (
+    <>
+      <Icon name={meta.icon} size={meta.size} className="h-[1.35em] w-auto" />
+      <span className="leading-tight">
+        <span
+          className={`block font-body text-f10 uppercase tracking-[0.08em] ${
+            config.live ? 'text-ink/60' : 'text-white/40'
+          }`}
+        >
+          {config.live ? meta.kicker : 'Coming soon'}
+        </span>
+        <span className={`block font-display text-f16 font-bold ${config.live ? 'text-ink' : 'text-white/70'}`}>
+          {meta.name}
+        </span>
+      </span>
+    </>
+  )
+
+  const shared = `inline-flex items-center gap-s12 rounded-pill px-s24 py-[0.7292vw] max-xl:py-3.5 ${className}`
+
+  if (!config.live) {
+    return (
+      <span
+        aria-disabled="true"
+        className={`${shared} cursor-default border border-white/[0.12] bg-white/[0.04] opacity-70 grayscale`}
+      >
+        {inner}
+      </span>
+    )
+  }
+
+  return (
+    <a
+      href={config.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`${shared} bg-white text-ink transition-transform duration-300 hover:scale-[1.03]`}
+    >
+      {inner}
+    </a>
   )
 }
