@@ -6,8 +6,8 @@
  * has to be corrected, and nothing can drift out of sync between the footer,
  * the contact page and the venue page.
  *
- * The three values still awaiting the client are flagged TODO(client) and are
- * the only edits needed before launch.
+ * The values still awaiting the client are flagged TODO(client) and are the
+ * only edits needed before launch.
  */
 
 /* ── Contact ──────────────────────────────────────────────────────────────
@@ -16,9 +16,8 @@
  * "Call" row that used to carry the +1 234 567 8901 placeholder is gone.
  * ------------------------------------------------------------------------ */
 
-/** TODO(client): confirm the real inbox before launch — this is the one value
- *  on the site that is still an assumption rather than a supplied fact. */
-export const EMAIL = 'hello@hausofpong.com'
+/** Confirmed by the client. */
+export const EMAIL = 'info@hausofpong.com'
 export const EMAIL_HREF = `mailto:${EMAIL}`
 
 /** Group and corporate enquiries route to the same inbox with a subject line
