@@ -35,7 +35,7 @@ const fieldLabel = 'font-geist text-f12 font-semibold uppercase leading-none tra
 const field =
   'mt-s20 w-full rounded-lg border border-white/[0.1] bg-[#35353480] px-s16 py-s12 font-jakarta text-f16 leading-[1.5] text-white placeholder:text-white/35 focus:border-orange/60 focus:outline-none transition-colors'
 
-type Status = 'idle' | 'sending' | 'sent' | 'error'
+type Status = 'idle' | 'sending' | 'sent' | 'handoff' | 'error'
 
 /** Present only when the HubSpot tracking script is installed; links the
  *  submission to the visitor's browsing history instead of creating an
@@ -89,6 +89,27 @@ export default function ContactBody() {
           pageUri: window.location.href,
         }),
       })
+
+      // 503 means the route has no CRM credentials configured. Rather than
+      // showing the visitor a dead form, hand the enquiry they already typed
+      // to their own email client, fully composed. Nothing is lost, and no
+      // configuration is required for the form to be usable. Once credentials
+      // exist the route stops answering 503 and this branch never runs.
+      if (res.status === 503) {
+        const body = [
+          `Name: ${data.get('name')}`,
+          `Email: ${data.get('email')}`,
+          '',
+          String(data.get('message') ?? ''),
+        ].join('\n')
+
+        window.location.href =
+          `${EMAIL_HREF}?subject=${encodeURIComponent(String(data.get('subject') ?? 'Enquiry'))}` +
+          `&body=${encodeURIComponent(body)}`
+
+        setStatus('handoff')
+        return
+      }
 
       if (!res.ok) {
         const body = await res.json().catch(() => null)
@@ -266,7 +287,7 @@ export default function ContactBody() {
               disabled={sending}
               className="mt-s50 w-full rounded-pill bg-cta py-s16 font-body text-f18 font-semibold text-[#301e01] transition-transform duration-300 hover:scale-[1.01] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100"
             >
-              {sending ? 'Sending…' : status === 'sent' ? 'Message sent' : 'Send Message'}
+              {sending ? 'Sending…' : status === 'sent' ? 'Message sent' : status === 'handoff' ? 'Continue in your email app' : 'Send Message'}
             </button>
 
             {/* aria-live so screen readers announce the result without a focus jump.
@@ -276,6 +297,19 @@ export default function ContactBody() {
             <div aria-live="polite" className="min-h-[1.5em] pt-s16 text-center font-body text-f14 leading-[1.4]">
               {status === 'sent' && (
                 <p className="text-[#7ee0a8]">Thanks — we’ve got it. We’ll be in touch shortly.</p>
+              )}
+              {status === 'handoff' && (
+                <p className="text-white/70">
+                  Opening your email app with the message ready to send. If nothing happened, reach us at{' '}
+                  <a href={EMAIL_HREF} className="text-orange underline-offset-4 hover:underline">
+                    {EMAIL}
+                  </a>{' '}
+                  or{' '}
+                  <a href={PHONE_HREF} className="text-orange underline-offset-4 hover:underline">
+                    {PHONE}
+                  </a>
+                  .
+                </p>
               )}
               {status === 'error' && (
                 <>

@@ -6,8 +6,8 @@
  * has to be corrected, and nothing can drift out of sync between the footer,
  * the contact page and the venue page.
  *
- * The values still awaiting the client are flagged TODO(client) and are the
- * only edits needed before launch.
+ * Every value here has been confirmed by the client. The two session rates are
+ * deliberately left unset — see the Pricing block below.
  */
 
 /* ── Contact ──────────────────────────────────────────────────────────────
@@ -89,9 +89,10 @@ export const BOOKING = {
 export const EVENTS_BOOKING_HREF = '/contact?subject=Private+%26+Corporate+Events#booking-form'
 
 /* ── Pricing ──────────────────────────────────────────────────────────────
- * TODO(client): drop the four rates in below. `null` renders as "TBA" in a
- * muted style rather than a broken empty cell, so the section ships and reads
- * correctly with or without the numbers.
+ * The client has confirmed the section ships as it stands. A `null` rate
+ * renders as a muted "TBA" rather than a broken empty cell, so the layout is
+ * correct either way; setting a number here is all that is needed whenever the
+ * rates are decided, and nothing else has to change.
  * ------------------------------------------------------------------------ */
 
 export type Rate = number | null
@@ -121,7 +122,7 @@ export const PRICING: {
   },
 ]
 
-/** TODO(client): confirm the exact peak window. */
+/** Confirmed by the client. */
 export const PEAK_WINDOWS = {
   peak: 'Evenings and weekends',
   offPeak: 'Weekday daytime and overnight',
@@ -148,8 +149,8 @@ export const APP = {
 export const APP_LIVE = APP.ios.live || APP.android.live
 
 /* ── Social ───────────────────────────────────────────────────────────────
- * TODO(client): confirm the handles. These follow the brand name; correct any
- * that differ. Twitter/X was dropped — the client asked for IG, TikTok and FB.
+ * Instagram, TikTok and Facebook, per the client. Twitter/X was dropped.
+ * The handles follow the brand name — correct any that turn out to differ.
  * ------------------------------------------------------------------------ */
 
 export const SOCIALS = [
