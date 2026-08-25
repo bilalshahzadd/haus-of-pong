@@ -90,31 +90,31 @@ export default function HowItWorks() {
           </Reveal>
         </div>
 
-        <div className="mt-s60 grid gap-x-s169 gap-y-s91 md:grid-cols-2">
+        <div className="mt-s60 grid auto-rows-fr gap-x-s40 gap-y-s50 md:grid-cols-2">
           {STEPS.map((s, i) => (
-            <Reveal key={s.n} delay={0.08 * i}>
+            <Reveal key={s.n} delay={0.08 * i} className="h-full">
               {/* Capped narrower than the Figma 665px group — client asked for
                   smaller cards here specifically. The ring is sized in fixed px
                   (not %) and the card offset is exactly half that size, so the
                   ring is guaranteed to sit centred on the card's corner — with
                   a %-based offset it inherits the grid cell's width instead of
                   the ring's, and the two only overlapped by a sliver. */}
-              <article className="relative max-w-[480px] pl-[36px] pt-[36px]">
+              <article className="relative h-full w-full pl-[22px] pt-[22px]">
                 <div className="absolute left-0 top-0 z-10 grid h-[72px] w-[72px] place-items-center">
                   <Ring id={s.n} />
                   <span className="absolute font-title text-f20 font-semibold leading-none text-white/70">{s.n}</span>
                 </div>
 
-                <div className="flex flex-col items-center rounded-r24 bg-step pb-[9%] pt-[6.5%] text-center transition-transform duration-500 hover:-translate-y-1.5">
-                  <span className="grid aspect-square w-[15%] place-items-center rounded-full border border-white/[0.16] bg-chip">
+                <div className="flex h-full flex-col items-center rounded-r24 bg-step px-s24 pb-s40 pt-s32 text-center transition-transform duration-500 hover:-translate-y-1.5">
+                  <span className="grid aspect-square w-chip48 place-items-center rounded-full border border-white/[0.16] bg-chip">
                     <Icon name={s.icon} size="37%" />
                   </span>
 
-                  <div className="mt-[3.333%] flex flex-col items-center gap-[3.333%]">
-                    <h3 className="max-w-[92%] py-s8 font-display text-f24 font-bold leading-[1.25] text-white">
+                  <div className="mt-s16 flex flex-col items-center">
+                    <h3 className="font-display text-f24 font-bold leading-[1.25] text-white">
                       {s.title}
                     </h3>
-                    <p className="max-w-[72%] font-body text-f16 leading-[1.3] text-white/80">{s.copy}</p>
+                    <p className="mt-s12 max-w-[38ch] font-body text-f16 leading-[1.45] text-white/80">{s.copy}</p>
                   </div>
                 </div>
               </article>

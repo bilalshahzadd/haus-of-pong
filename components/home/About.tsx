@@ -47,7 +47,7 @@ const FEATURES = [
 ]
 
 const CARD =
-  'relative h-full overflow-hidden rounded-r32 border border-white/[0.08] bg-ink-600 px-[7.5%] py-s16'
+  'relative flex h-full flex-col overflow-hidden rounded-r32 border border-white/[0.08] bg-ink-600 px-[7.5%] py-s24'
 
 export default function About() {
   return (
@@ -94,27 +94,38 @@ export default function About() {
             </Reveal>
           </div>
 
-          {/* Card column — 2 columns, 16px gutters, 422x200 tiles */}
-          <div className="grid gap-s16 sm:grid-cols-2">
-            {FEATURES.map((f, i) => (
-              <Reveal key={f.title} delay={0.04 * i}>
-                <article className={`${CARD} group transition-colors duration-300 hover:border-white/20`}>
-                  {/* 160px blur that sits off the card's top-right corner */}
-                  <span className="pointer-events-none absolute -right-[18%] -top-[32%] aspect-square w-[38%] rounded-full bg-orange/[0.13] opacity-0 blur-[60px] transition-opacity duration-500 group-hover:opacity-100" />
-                  <span className="icon-chip">
-                    <Icon name={f.icon} size="46%" />
-                  </span>
-                  <h3 className="mt-s16 font-display text-f20 font-bold leading-[1.4] text-white">{f.title}</h3>
-                  <p className="mt-s8 font-body text-f14 leading-[1.643] text-white/60">{f.copy}</p>
-                </article>
-              </Reveal>
-            ))}
+          {/* Card column.
+              Two separate grids on purpose. The six feature tiles share one
+              `auto-rows-fr` grid so every row is the height of the tallest and
+              they all match exactly. The store tile is kept out of it: it spans
+              both columns and is naturally taller, and while it sat inside the
+              same grid its height propagated to every row, which is what left
+              each feature card with a block of dead space under its text.
+
+              `self-start` stops the whole column inheriting the height of the
+              taller copy column and sharing that slack out across the rows. */}
+          <div className="flex flex-col gap-s16 self-start">
+            <div className="grid auto-rows-fr gap-s16 sm:grid-cols-2">
+              {FEATURES.map((f, i) => (
+                <Reveal key={f.title} delay={0.04 * i} className="h-full">
+                  <article className={`${CARD} group transition-colors duration-300 hover:border-white/20`}>
+                    {/* 160px blur that sits off the card's top-right corner */}
+                    <span className="pointer-events-none absolute -right-[18%] -top-[32%] aspect-square w-[38%] rounded-full bg-orange/[0.13] opacity-0 blur-[60px] transition-opacity duration-500 group-hover:opacity-100" />
+                    <span className="icon-chip">
+                      <Icon name={f.icon} size="46%" />
+                    </span>
+                    <h3 className="mt-s16 font-display text-f20 font-bold leading-[1.4] text-white">{f.title}</h3>
+                    <p className="mt-s8 font-body text-f14 leading-[1.643] text-white/60">{f.copy}</p>
+                  </article>
+                </Reveal>
+              ))}
+            </div>
 
             {/* Closing tile — the store badges. While the app is unreleased this
                 states plainly that booking needs no download, so nobody stalls
                 waiting for an app that isn't there yet. */}
             <Reveal delay={0.4}>
-              <article className={`${CARD} flex flex-col justify-center gap-s16 sm:col-span-2`}>
+              <article className={`${CARD} justify-center gap-s16`}>
                 <h3 className="font-display text-f20 font-bold leading-[1.4] text-white">
                   {APP_LIVE ? 'Book faster with the app.' : 'No app required — book on the web.'}
                 </h3>

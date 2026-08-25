@@ -26,7 +26,7 @@ export default function VisitVip() {
         <div className="flex gap-s30 max-xl:flex-col">
           {/* Left panel — 830/1540 */}
           <Reveal className="xl:w-[53.9%]">
-            <div className="h-full rounded-r32 bg-vip-panel p-s50">
+            <div className="flex h-full flex-col justify-between rounded-r32 bg-vip-panel p-s50">
               <div className="flex flex-wrap items-center gap-s16">
                 <StatusPill />
                 <span className="font-body text-f12 uppercase leading-none tracking-[0.12em] text-[#9d9c9b] xl:text-[20px]">
@@ -37,7 +37,7 @@ export default function VisitVip() {
               {/* Live Google Maps embed in place of the 680x362 static map from Figma.
                   The address/heading block that used to sit above this was dropped —
                   it repeated what the Location section already shows in full. */}
-              <div className="relative mt-s30 aspect-[680/362] w-full overflow-hidden rounded-r24 border border-white/[0.07]">
+              <div className="relative mt-s30 min-h-[260px] w-full max-h-[520px] flex-1 overflow-hidden rounded-r24 border border-white/[0.07] max-xl:aspect-[680/362] max-xl:flex-none">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3249.408375138811!2d-97.50972159999999!3d35.4694386!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x87b217aa3c6b8ef3%3A0x9741f49689538779!2sHaus%20of%20Pong!5e0!3m2!1sen!2s!4v1785477291626!5m2!1sen!2s"
                   title="Haus of Pong on Google Maps"
@@ -48,7 +48,7 @@ export default function VisitVip() {
                 />
               </div>
 
-              <div className="mt-s30 flex flex-wrap gap-s30 pt-s8">
+              <div className="mt-s30 flex flex-wrap gap-s16">
                 <BookButton />
                 <GhostButton href={DIRECTIONS_URL}>Get Directions</GhostButton>
               </div>
