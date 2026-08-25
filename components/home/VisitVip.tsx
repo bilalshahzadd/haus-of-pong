@@ -14,8 +14,69 @@ import { ADDRESS, DIRECTIONS_URL, EMAIL, EMAIL_HREF, HOURS, PHONE, PHONE_HREF } 
  * (title Space Grotesk 700 / 29.9 / lh 36, fields on 32px rhythm).
  */
 
+type VipStatus = 'idle' | 'sending' | 'joined' | 'error'
+
 export default function VisitVip() {
-  const [joined, setJoined] = useState(false)
+  const [status, setStatus] = useState<VipStatus>('idle')
+  const [vipError, setVipError] = useState('')
+  const [vipOffline, setVipOffline] = useState(false)
+
+  /**
+   * The VIP sign-up posts to the same route the contact form uses, tagged with
+   * its own subject so the two are told apart in the CRM. Before this it only
+   * set a "You're on the list" label locally and never sent the name or email
+   * anywhere, so every sign-up was silently discarded.
+   */
+  async function handleVipSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    if (status === 'sending') return
+
+    const form = event.currentTarget
+    const data = new FormData(form)
+    const name = String(data.get('vip-name') ?? '').trim()
+    const email = String(data.get('vip-email') ?? '').trim()
+
+    if (!name || !email) {
+      setVipError('Please add your name and email.')
+      setStatus('error')
+      return
+    }
+
+    setStatus('sending')
+    setVipError('')
+    setVipOffline(false)
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name,
+          email,
+          subject: 'VIP List',
+          message: 'Joined the VIP list from the website.',
+          pageUri: window.location.href,
+        }),
+      })
+
+      if (res.status === 503) {
+        setVipOffline(true)
+        setStatus('error')
+        return
+      }
+
+      if (!res.ok) {
+        const body = await res.json().catch(() => null)
+        throw new Error(body?.error ?? 'Could not join just now. Please try again.')
+      }
+
+      form.reset()
+      setStatus('joined')
+    } catch (err) {
+      setVipError(err instanceof Error ? err.message : 'Could not join just now. Please try again.')
+      setStatus('error')
+    }
+  }
 
   return (
     <section id="visit" className="relative overflow-hidden bg-ink">
@@ -126,19 +187,17 @@ export default function VisitVip() {
                   Join The VIP List
                 </h3>
 
-                <form
-                  className="mt-s30 flex flex-col gap-s32"
-                  onSubmit={(e) => {
-                    e.preventDefault()
-                    setJoined(true)
-                  }}
-                >
+                <form className="mt-s30 flex flex-col gap-s32" onSubmit={handleVipSubmit} noValidate>
                   <div className="border-t border-white/[0.08] pt-s16">
                     <label htmlFor="vip-name" className="font-body text-f12 uppercase tracking-[0.22em] text-white/45">
                       Name
                     </label>
                     <input
                       id="vip-name"
+                      name="vip-name"
+                      autoComplete="name"
+                      required
+                      disabled={status === 'sending'}
                       placeholder="Your Full Name"
                       className="mt-s12 w-full bg-transparent font-body text-f16 text-white placeholder:text-white/30 focus:outline-none"
                     />
@@ -150,7 +209,11 @@ export default function VisitVip() {
                     </label>
                     <input
                       id="vip-email"
+                      name="vip-email"
                       type="email"
+                      autoComplete="email"
+                      required
+                      disabled={status === 'sending'}
                       placeholder="you@email.com"
                       className="mt-s12 w-full bg-transparent font-body text-f16 text-white placeholder:text-white/30 focus:outline-none"
                     />
@@ -158,9 +221,10 @@ export default function VisitVip() {
 
                   <button
                     type="submit"
-                    className="group inline-flex w-fit items-center gap-s8 rounded-pill bg-cta px-[1.4583vw] py-s16 font-body text-f16 font-semibold text-white transition-transform duration-300 hover:scale-[1.03] max-xl:px-6"
+                    disabled={status === 'sending'}
+                    className="group inline-flex w-fit items-center gap-s8 rounded-pill bg-cta px-[1.4583vw] py-s16 font-body text-f16 font-semibold text-white transition-transform duration-300 hover:scale-[1.03] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100 max-xl:px-6"
                   >
-                    {joined ? 'You’re on the list' : 'Join The VIP List'}
+                    {status === 'sending' ? 'Joining…' : status === 'joined' ? 'You’re on the list' : 'Join The VIP List'}
                     <svg viewBox="0 0 16 16" className="h-[1em] w-[1em]" fill="none" aria-hidden>
                       <path d="M4.5 11.5 11.5 4.5" stroke="currentColor" strokeWidth="1.333" strokeLinecap="round" />
                       <path
@@ -172,6 +236,23 @@ export default function VisitVip() {
                       />
                     </svg>
                   </button>
+
+                  <p aria-live="polite" className="min-h-[1.4em] font-body text-f14 leading-[1.5]">
+                    {status === 'joined' && (
+                      <span className="text-[#7ee0a8]">You’re on the list — we’ll be in touch.</span>
+                    )}
+                    {status === 'error' &&
+                      (vipOffline ? (
+                        <span className="text-white/70">
+                          Sign-ups aren’t connected yet — email us to join:{' '}
+                          <a href={EMAIL_HREF} className="text-orange underline-offset-4 hover:underline">
+                            {EMAIL}
+                          </a>
+                        </span>
+                      ) : (
+                        <span className="text-[#ff8f7a]">{vipError}</span>
+                      ))}
+                  </p>
                 </form>
               </div>
             </Reveal>
