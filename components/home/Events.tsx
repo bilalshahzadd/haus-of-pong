@@ -37,9 +37,14 @@ export default function Events() {
 
       <div className="shell section-y relative">
         <div className="relative overflow-hidden rounded-r32 border border-white/[0.08] bg-ink-600">
+          {/* The room itself, not a group photo — the gallery already runs the
+              huddle shot, and repeating a photograph on one page is exactly the
+              thing the client called out. This also suits "take the whole
+              Haus" better: it shows the space you'd be booking. */}
           <Image
-            src="/images/community-huddle.jpg"
-            alt="A group together at Haus of Pong"
+            src="/images/about-interior.png"
+            alt=""
+            aria-hidden
             fill
             sizes="(max-width: 1520px) 100vw, 1520px"
             className="object-cover opacity-25"

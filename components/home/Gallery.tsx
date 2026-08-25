@@ -3,12 +3,15 @@ import Reveal from '../Reveal'
 import { Eyebrow } from '../ui'
 
 /**
- * Two columns of paired tiles (was three — the Vending Machine column carried
- * a generic stock photo the client asked dropped, so its width folded back
- * into an even 2-up split instead of leaving an orphaned narrow gap):
+ * Two columns of tiles:
  *
- *   col 1   Venue 429x640     -> gap 34 -> Events 429x300
- *   col 2   Players 429x300   -> gap 36 -> Ball 429x640
+ *   col 1   Venue 429x640
+ *   col 2   Players 429x300  -> gap -> Events 429x300
+ *
+ * The "Ball" tile was removed at the client's request: it ran the same
+ * photograph the Replays section leads with, so the image appeared twice on
+ * one page. Events moved across to fill column 2, which keeps the two columns
+ * close to the same height (640 vs 300+gap+300) instead of leaving a stub.
  *
  * Every tile: radius 32, #161616 base, and a bottom-up scrim
  * (rgba(5,5,5,.8) -> .1 @50% -> 0) drawn at 70% layer opacity.
@@ -61,8 +64,6 @@ export default function Gallery() {
           </h2>
         </Reveal>
 
-        {/* Two columns now that the Vending Machine tile is gone — was a 3rd,
-            narrower column carrying a generic stock photo the client asked to drop. */}
         <div className="mt-s60 grid grid-cols-1 items-start gap-s24 md:grid-cols-2 xl:mt-[60px] xl:gap-s24">
           {/* Column 1 */}
           <div className="flex flex-col gap-s24 xl:gap-[34px]">
@@ -73,14 +74,6 @@ export default function Gallery() {
                 label="Venue"
                 aspect="aspect-[429/640]"
                 priority
-              />
-            </Reveal>
-            <Reveal delay={0.08}>
-              <Tile
-                src="/images/community-capitol-toss.jpg"
-                alt="Regulars celebrating outside with Haus of Pong balls in the air"
-                label="Events"
-                aspect="aspect-[429/300]"
               />
             </Reveal>
           </div>
@@ -97,10 +90,10 @@ export default function Gallery() {
             </Reveal>
             <Reveal delay={0.14}>
               <Tile
-                src="/images/community-ball-eyes.jpg"
-                alt="A player holding two Haus of Pong balls up to her eyes"
-                label="Ball"
-                aspect="aspect-[429/640]"
+                src="/images/community-capitol-toss.jpg"
+                alt="Regulars celebrating outside with Haus of Pong balls in the air"
+                label="Events"
+                aspect="aspect-[429/300]"
               />
             </Reveal>
           </div>

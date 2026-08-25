@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { SocialLinks } from './ui'
-import { ADDRESS, BOOKING, EMAIL, EMAIL_HREF, HOURS, WAIVER } from '@/lib/site'
+import { ADDRESS, BOOKING, EMAIL, EMAIL_HREF, HOURS, PHONE, PHONE_HREF, WAIVER } from '@/lib/site'
 
 /**
  * Footer (node 2103:1410) — 1920x460, wash 90deg #050505 -> #332001, top hairline.
@@ -54,9 +54,14 @@ export default function Footer() {
               {HOURS}
             </p>
 
-            <a href={EMAIL_HREF} className={`${linkClass} mt-s16 inline-block text-f16`}>
-              {EMAIL}
-            </a>
+            <p className="mt-s16 flex flex-col gap-s8">
+              <a href={PHONE_HREF} className={`${linkClass} text-f16`}>
+                {PHONE}
+              </a>
+              <a href={EMAIL_HREF} className={`${linkClass} text-f16`}>
+                {EMAIL}
+              </a>
+            </p>
 
             <div className="mt-s24">
               <h4 className={headClass}>Follow</h4>

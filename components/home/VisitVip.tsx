@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Reveal from '../Reveal'
 import { BookButton, GhostButton, Icon, SocialLinks, StatusPill } from '../ui'
-import { ADDRESS, DIRECTIONS_URL, EMAIL, EMAIL_HREF, HOURS } from '@/lib/site'
+import { ADDRESS, DIRECTIONS_URL, EMAIL, EMAIL_HREF, HOURS, PHONE, PHONE_HREF } from '@/lib/site'
 
 /**
  * Visit / VIP (node 2296:1339) — content band 1540 wide (830 + 30 gap + 680).
@@ -59,9 +59,22 @@ export default function VisitVip() {
           <div className="flex flex-col gap-[1.4948vw] max-xl:gap-6 xl:w-[44.16%]">
             <Reveal delay={0.1}>
               <div className="rounded-r32 bg-vip-panel px-s50 py-s30">
-                {/* No phone row: the lounge is unstaffed, so a published number
-                    would ring nobody. Email is the real channel. */}
                 <div className="flex items-start gap-s20 pt-s24">
+                  <span className="grid aspect-square w-[8.1%] min-w-[36px] max-w-[44px] shrink-0 place-items-center rounded-full border border-white/[0.16]">
+                    <Icon name="contact-call" size="40%" />
+                  </span>
+                  <div>
+                    <p className="font-body text-f12 uppercase leading-none tracking-[0.22em] text-white/45">Call</p>
+                    <a
+                      href={PHONE_HREF}
+                      className="mt-s8 block font-body text-f20 leading-tight text-white transition-colors hover:text-orange"
+                    >
+                      {PHONE}
+                    </a>
+                  </div>
+                </div>
+
+                <div className="mt-s30 flex items-start gap-s20 border-t border-white/[0.08] pt-s24">
                   <span className="grid aspect-square w-[8.1%] min-w-[36px] max-w-[44px] shrink-0 place-items-center rounded-full border border-white/[0.16]">
                     <Icon name="contact-email" size="40%" />
                   </span>

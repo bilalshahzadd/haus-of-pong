@@ -11,14 +11,20 @@
  */
 
 /* ── Contact ──────────────────────────────────────────────────────────────
- * Phone is deliberately absent: the lounge is unstaffed and self-serve, so a
- * published number would ring nobody. Email is the only channel, and every
- * "Call" row that used to carry the +1 234 567 8901 placeholder is gone.
+ * Both values confirmed by the client. The phone number was withheld for a
+ * while because the lounge is unstaffed and the only number on file was a
+ * placeholder; there is now a real line, so it runs everywhere the email does.
  * ------------------------------------------------------------------------ */
 
 /** Confirmed by the client. */
 export const EMAIL = 'info@hausofpong.com'
 export const EMAIL_HREF = `mailto:${EMAIL}`
+
+/** Confirmed by the client. Display form and the E.164 dial form — a `tel:`
+ *  href must carry no spaces, brackets or dashes for iOS and Android to
+ *  hand it to the dialler cleanly. */
+export const PHONE = '+1 (405) 446-9400'
+export const PHONE_HREF = 'tel:+14054469400'
 
 /** Group and corporate enquiries route to the same inbox with a subject line
  *  that sorts them, rather than to a second address nobody monitors. */

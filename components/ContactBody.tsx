@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Reveal from './Reveal'
 import { Icon, SocialLinks } from './ui'
-import { ADDRESS, DIRECTIONS_URL, EMAIL, EMAIL_HREF, HOURS, WAIVER } from '@/lib/site'
+import { ADDRESS, DIRECTIONS_URL, EMAIL, EMAIL_HREF, HOURS, PHONE, PHONE_HREF, WAIVER } from '@/lib/site'
 
 /**
  * Contact body (node 2167:267) — 1520 band, H gap 60: a 673 copy column and a
@@ -16,8 +16,7 @@ import { ADDRESS, DIRECTIONS_URL, EMAIL, EMAIL_HREF, HOURS, WAIVER } from '@/lib
 
 const DETAILS: { icon: string; label: string; value: string[]; href?: string }[] = [
   { icon: 'contact-visit', label: 'Visit', value: ADDRESS.lines, href: DIRECTIONS_URL },
-  // No phone row: the lounge is unstaffed, so the +1 234 567 8901 placeholder
-  // that used to sit here had no real number behind it to replace.
+  { icon: 'contact-call', label: 'Call', value: [PHONE], href: PHONE_HREF },
   { icon: 'contact-email', label: 'Email', value: [EMAIL], href: EMAIL_HREF },
   { icon: 'contact-hours', label: 'Hours', value: [HOURS] },
   { icon: 'icon-waiver', label: 'Waiver', value: ['Accepted at booking'], href: WAIVER.href },
@@ -270,13 +269,30 @@ export default function ContactBody() {
               {sending ? 'Sending…' : status === 'sent' ? 'Message sent' : 'Send Message'}
             </button>
 
-            {/* aria-live so screen readers announce the result without a focus jump */}
-            <p aria-live="polite" className="min-h-[1.5em] pt-s16 text-center font-body text-f14 leading-[1.4]">
+            {/* aria-live so screen readers announce the result without a focus jump.
+                On failure the enquiry must not simply evaporate: the message is
+                followed by a tappable phone and email so the visitor still has a
+                way through even while the form backend is unreachable. */}
+            <div aria-live="polite" className="min-h-[1.5em] pt-s16 text-center font-body text-f14 leading-[1.4]">
               {status === 'sent' && (
-                <span className="text-[#7ee0a8]">Thanks — we’ve got it. We’ll be in touch shortly.</span>
+                <p className="text-[#7ee0a8]">Thanks — we’ve got it. We’ll be in touch shortly.</p>
               )}
-              {status === 'error' && <span className="text-[#ff8f7a]">{error}</span>}
-            </p>
+              {status === 'error' && (
+                <>
+                  <p className="text-[#ff8f7a]">{error}</p>
+                  <p className="mt-s12 text-white/60">
+                    Reach us directly:{' '}
+                    <a href={PHONE_HREF} className="text-orange underline-offset-4 hover:underline">
+                      {PHONE}
+                    </a>{' '}
+                    ·{' '}
+                    <a href={EMAIL_HREF} className="text-orange underline-offset-4 hover:underline">
+                      {EMAIL}
+                    </a>
+                  </p>
+                </>
+              )}
+            </div>
           </form>
         </Reveal>
       </div>

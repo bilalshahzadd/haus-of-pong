@@ -93,31 +93,28 @@ export default function AppSection() {
             )}
           </div>
 
-          {/* Phone pair — 490x492 group, second phone offset 182/32 at 80% opacity */}
-          {/* The width has to sit on the flex item itself. The inner box is
-              w-full over absolutely-positioned children, so its content width
-              is 0 — without an explicit basis here the whole phone pair
-              collapsed to nothing and neither screenshot ever rendered. */}
-          <Reveal delay={0.2} className="w-full shrink-0 xl:w-[32.2%]">
-            <div className="relative mx-auto aspect-[490/492] w-full max-w-[490px]">
-              <div className="absolute left-0 top-0 w-[45.1%] overflow-hidden rounded-r48 border-[6px] border-black bg-black shadow-[0_30px_50px_-18px_rgba(0,0,0,0.9)]">
-                <Image
-                  src="/images/app-phone-1.png"
-                  alt="Haus of Pong app booking screen"
-                  width={205}
-                  height={445}
-                  className="h-auto w-full"
-                />
-              </div>
-              <div className="absolute left-[37.1%] top-[6.5%] w-[62.9%] overflow-hidden rounded-r48 border-[6px] border-black bg-black opacity-80 shadow-[0_30px_50px_-18px_rgba(0,0,0,0.9)]">
-                <Image
-                  src="/images/app-phone-2.png"
-                  alt="Haus of Pong app menu screen"
-                  width={288}
-                  height={441}
-                  className="h-auto w-full"
-                />
-              </div>
+          {/* Single phone. The second mockup was the food/drink "digital menu"
+              screen — removed at the client's request, and it contradicted the
+              rest of the page anyway: there is no kitchen and no bar service
+              here. What is left is the booking screen, which is what the app
+              is actually for.
+
+              The width has to sit on the flex item itself: the inner box is
+              w-full over an absolutely-positioned child, so its content width
+              is 0 and without an explicit basis the phone collapses. */}
+          <Reveal delay={0.2} className="w-full shrink-0 xl:w-[40%]">
+            {/* A photograph of the booking screen in the room, not a screenshot,
+                so it gets a plain rounded card — the old heavy black bezel was
+                framing a landscape photo as though it were a phone. */}
+            <div className="relative mx-auto w-full max-w-[520px] overflow-hidden rounded-r32 border border-white/[0.08] shadow-[0_30px_60px_-20px_rgba(0,0,0,0.9)]">
+              <Image
+                src="/images/app-phone-1.png"
+                alt="Booking a table on a phone at Haus of Pong"
+                width={512}
+                height={270}
+                sizes="(max-width: 1280px) 100vw, 520px"
+                className="h-auto w-full"
+              />
             </div>
           </Reveal>
         </div>
