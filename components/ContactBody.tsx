@@ -4,7 +4,17 @@ import { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Reveal from './Reveal'
 import { Icon, SocialLinks } from './ui'
-import { ADDRESS, DIRECTIONS_URL, EMAIL, EMAIL_HREF, HOURS, PHONE, PHONE_HREF, WAIVER } from '@/lib/site'
+import {
+  ADDRESS,
+  DELETION_SUBJECT,
+  DIRECTIONS_URL,
+  EMAIL,
+  EMAIL_HREF,
+  HOURS,
+  PHONE,
+  PHONE_HREF,
+  WAIVER,
+} from '@/lib/site'
 
 /**
  * Contact body (node 2167:267) — 1520 band, H gap 60: a 673 copy column and a
@@ -27,6 +37,7 @@ const SUBJECTS = [
   'Private & Corporate Events',
   'League Enquiry',
   'Replays & Game Clips',
+  DELETION_SUBJECT,
   'Something Else',
 ]
 

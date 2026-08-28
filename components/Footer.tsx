@@ -1,7 +1,17 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { SocialLinks } from './ui'
-import { ADDRESS, BOOKING, EMAIL, EMAIL_HREF, HOURS, PHONE, PHONE_HREF, WAIVER } from '@/lib/site'
+import {
+  ADDRESS,
+  BOOKING,
+  DELETION_HREF,
+  EMAIL,
+  EMAIL_HREF,
+  HOURS,
+  PHONE,
+  PHONE_HREF,
+  WAIVER,
+} from '@/lib/site'
 
 /**
  * Footer (node 2103:1410) — 1920x460, wash 90deg #050505 -> #332001, top hairline.
@@ -23,6 +33,7 @@ const QUICK = [
 const LEGAL = [
   { label: 'Waiver & Facility Rules', href: WAIVER.href },
   { label: 'Privacy Policy', href: '/privacy-policy' },
+  { label: 'Delete My Data', href: DELETION_HREF },
   { label: 'Venue Details', href: '/venue-details' },
   { label: 'Contact', href: '/contact' },
 ]

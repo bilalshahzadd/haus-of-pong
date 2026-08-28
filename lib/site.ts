@@ -99,6 +99,14 @@ export const BOOKING = {
 
 export const EVENTS_BOOKING_HREF = '/contact?subject=Private+%26+Corporate+Events#booking-form'
 
+/** Account and data deletion requests. Apple and Google both require an app
+ *  with accounts to publish a route for deleting one, and privacy law gives
+ *  the same right regardless of the app — so this is a named subject on the
+ *  form rather than something a guest has to phrase themselves. The label must
+ *  match the SUBJECTS entry exactly: the form preselects by comparing them. */
+export const DELETION_SUBJECT = 'Account / Data Deletion'
+export const DELETION_HREF = `/contact?subject=${encodeURIComponent(DELETION_SUBJECT)}#booking-form`
+
 /* ── Pricing ──────────────────────────────────────────────────────────────
  * The client has confirmed the section ships as it stands. A `null` rate
  * renders as a muted "TBA" rather than a broken empty cell, so the layout is
