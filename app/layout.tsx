@@ -3,6 +3,7 @@ import { Space_Grotesk, Manrope, Playfair_Display, Montserrat, Plus_Jakarta_Sans
 import { GeistSans } from 'geist/font/sans'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import { SITE_URL } from '@/lib/site'
 import './globals.css'
 
 const spaceGrotesk = Space_Grotesk({
@@ -41,7 +42,7 @@ const jakarta = Plus_Jakarta_Sans({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://haus-of-pong.vercel.app'),
+  metadataBase: new URL(SITE_URL),
   title: 'Haus of Pong — Oklahoma City’s First Fully Automated Ping Pong Lounge',
   description:
     'Oklahoma City’s first fully automated ping pong lounge. Four tournament tables inside the Aloft Hotel in Downtown OKC — self-serve, reservation-only, open 24/7. Book online, the door unlocks for you.',

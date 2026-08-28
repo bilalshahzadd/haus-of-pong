@@ -30,6 +30,17 @@ export const PHONE_HREF = 'tel:+14054469400'
  *  that sorts them, rather than to a second address nobody monitors. */
 export const EVENTS_EMAIL = EMAIL
 
+/* ── Site ─────────────────────────────────────────────────────────────────
+ * Where the site actually lives. Open Graph image URLs are resolved against
+ * this, so on the wrong value every shared link previews a broken image.
+ *
+ * Set SITE_URL in the host's environment variables to move the site between
+ * hosts or onto the real domain without a code change. The default is the
+ * Vercel URL only because that is where it lives until the domain is pointed.
+ * ------------------------------------------------------------------------ */
+
+export const SITE_URL = (process.env.SITE_URL ?? 'https://haus-of-pong-gamma.vercel.app').replace(/\/$/, '')
+
 /* ── Location ─────────────────────────────────────────────────────────── */
 
 export const ADDRESS = {

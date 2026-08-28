@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { EMAIL } from '@/lib/site'
+import { EMAIL, SITE_URL } from '@/lib/site'
 
 /**
  * Contact form -> HubSpot.
@@ -91,7 +91,7 @@ async function submitViaForms(p: Payload) {
       body: JSON.stringify({
         fields,
         context: {
-          pageUri: p.pageUri || 'https://haus-of-pong.vercel.app/contact',
+          pageUri: p.pageUri || `${SITE_URL}/contact`,
           pageName: 'Request a Booking — Haus of Pong',
           ...(p.hutk ? { hutk: p.hutk } : {}),
         },
