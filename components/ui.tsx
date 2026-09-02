@@ -87,14 +87,22 @@ export function GhostButton({
 }
 
 /**
- * Green availability pill — r999, fill #6aff1f0f, border #6aff1f29,
- * 6px dot, label Manrope 400 / 20 / ls 2.4 / uppercase / #6aff1f.
+ * Green availability pill — r999, fill #6aff1f0f, border #6aff1f29, 6px dot.
+ *
+ * `w-fit self-start` is load-bearing, not decoration. The pill is inline-flex,
+ * but two of the three places it appears put it in a `flex flex-col`, whose
+ * default align-items is stretch — so it was pulled to the full width of the
+ * panel and read as a banner rather than a pill.
+ *
+ * The label stays on the small type step at every width. Figma specced 20px,
+ * which is larger than the body copy sitting under it and made a status chip
+ * shout louder than the heading it belongs to.
  */
 export function StatusPill({ label = 'Open 24/7 by Reservation' }: { label?: string }) {
   return (
-    <span className="inline-flex items-center gap-s8 rounded-pill border border-neon/[0.16] bg-neon/[0.06] px-s16 py-[0.3125vw] backdrop-blur-[12px] max-xl:py-1.5">
+    <span className="inline-flex w-fit shrink-0 items-center gap-s8 self-start rounded-pill border border-neon/[0.16] bg-neon/[0.06] px-s16 py-s8 backdrop-blur-[12px]">
       <span className="h-[6px] w-[6px] shrink-0 rounded-full bg-neon" />
-      <span className="font-body text-f12 uppercase leading-none tracking-[0.132em] text-neon xl:text-[20px]">
+      <span className="font-body text-f12 uppercase leading-none tracking-[0.132em] text-neon">
         {label}
       </span>
     </span>
