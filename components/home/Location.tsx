@@ -37,22 +37,32 @@ export default function Location() {
         </div>
 
         <Reveal delay={0.24}>
-          <div className="relative mt-s50 aspect-[1520/853] w-full overflow-hidden rounded-r24 border border-white/[0.05] bg-ink-500 max-md:aspect-[3/4]">
-            <Image
-              src="/images/location-lounge.png"
-              alt="Haus of Pong lounge, Downtown OKC"
-              fill
-              sizes="(max-width: 1520px) 100vw, 1520px"
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,0.1)_0%,rgba(5,5,5,0.45)_100%)]" />
+          {/* The detail panel overlays the photo from md up, but below that it
+              becomes a normal block underneath it. It used to be absolutely
+              positioned at every width inside an overflow-hidden box, and on a
+              phone its content (three-line heading, three-line address, two
+              stacked buttons) is taller than the photo — so the panel was
+              clipped and the buttons were cut in half. */}
+          <div className="relative mt-s50">
+            <div className="relative aspect-[1520/853] w-full overflow-hidden rounded-r24 border border-white/[0.05] bg-ink-500 max-md:aspect-[4/3]">
+              <Image
+                src="/images/location-lounge.png"
+                alt="Haus of Pong lounge, Downtown OKC"
+                fill
+                sizes="(max-width: 1520px) 100vw, 1520px"
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,0.1)_0%,rgba(5,5,5,0.45)_100%)]" />
 
-            <span className="absolute right-[3.36%] top-[6.4%] rounded-pill bg-orange-300 px-s16 py-[3px] font-body text-f12 uppercase leading-[1.4] tracking-[0.02em] text-orange-deep xl:text-[20px]">
-              Open 24/7
-            </span>
+              <span className="absolute right-[3.36%] top-[6.4%] rounded-pill bg-orange-300 px-s16 py-[3px] font-body text-f12 uppercase leading-[1.4] tracking-[0.02em] text-orange-deep xl:text-[20px]">
+                Open 24/7
+              </span>
+            </div>
 
-            {/* 928/1520 = 61.05% wide, centred, 34.3% down */}
-            <div className="absolute left-1/2 top-[30%] w-[61.05%] -translate-x-1/2 rounded-r12 border border-white/[0.1] bg-[#111111cc] px-s40 py-s24 backdrop-blur-[20px] max-md:w-[86%]">
+            {/* 928/1520 = 61.05% wide, centred, 30% down — overlaid from xl up.
+                Not md: at 768 the panel is still taller than the photo, so the
+                overlay clipped the buttons there too. */}
+            <div className="rounded-r12 border border-white/[0.1] bg-[#111111cc] px-s40 py-s24 backdrop-blur-[20px] max-xl:mt-s24 max-md:px-s24 xl:absolute xl:left-1/2 xl:top-[30%] xl:w-[61.05%] xl:-translate-x-1/2">
               <div className="flex flex-col gap-s16">
                 <StatusPill />
                 {/* Montserrat 500 / 48 / lh 42 */}
@@ -72,9 +82,11 @@ export default function Location() {
                 </p>
               </div>
 
-              <div className="mt-s30 flex flex-wrap gap-s16">
-                <BookButton />
-                <GhostButton href={DIRECTIONS_URL}>Get Directions</GhostButton>
+              <div className="mt-s30 flex flex-wrap gap-s16 max-md:flex-col max-md:items-stretch">
+                <BookButton className="max-md:justify-center" />
+                <GhostButton href={DIRECTIONS_URL} className="max-md:justify-center">
+                  Get Directions
+                </GhostButton>
               </div>
             </div>
           </div>
