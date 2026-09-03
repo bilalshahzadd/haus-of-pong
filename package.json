@@ -8,8 +8,7 @@
     "build": "next build",
     "start": "node server.js",
     "lint": "next lint",
-    "icons": "node scripts/generate-icons.mjs",
-    "package": "node scripts/package-for-host.mjs"
+    "icons": "node scripts/generate-icons.mjs"
   },
   "dependencies": {
     "@types/node": "^20.14.14",
