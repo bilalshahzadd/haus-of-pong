@@ -80,9 +80,10 @@ export default function About() {
             </Reveal>
 
             <Reveal delay={0.24}>
-              {/* The source photo is portrait (768x1024), so the box is close to
-                  the photo's own ratio rather than a heavy landscape crop. */}
-              <div className="relative mt-s16 aspect-[4/5] w-full overflow-hidden rounded-r32">
+              {/* A square crop rather than the source photo's 3:4. The taller
+                  box pushed this column well past the cards beside it, which is
+                  what left the blank block of page on the right. */}
+              <div className="relative mt-s16 aspect-square w-full overflow-hidden rounded-r32">
                 <Image
                   src="/images/community-tableside.jpg"
                   alt="A player resting by the net, paddle in hand, at Haus of Pong"
@@ -102,9 +103,12 @@ export default function About() {
               same grid its height propagated to every row, which is what left
               each feature card with a block of dead space under its text.
 
-              `self-start` stops the whole column inheriting the height of the
-              taller copy column and sharing that slack out across the rows. */}
-          <div className="flex flex-col gap-s16 self-start">
+              The column fills the row height and the store tile takes the
+              slack, so it finishes level with the photo column instead of
+              stopping short. The slack lands in that one tile rather than
+              being shared across the feature rows, which is what used to
+              leave every card's text stranded at the top. */}
+          <div className="flex flex-col gap-s16">
             <div className="grid auto-rows-fr gap-s16 sm:grid-cols-2">
               {FEATURES.map((f, i) => (
                 <Reveal key={f.title} delay={0.04 * i} className="h-full">
@@ -124,8 +128,8 @@ export default function About() {
             {/* Closing tile — the store badges. While the app is unreleased this
                 states plainly that booking needs no download, so nobody stalls
                 waiting for an app that isn't there yet. */}
-            <Reveal delay={0.4}>
-              <article className={`${CARD} justify-center gap-s16`}>
+            <Reveal delay={0.4} className="flex-1 xl:max-h-[320px]">
+              <article className={`${CARD} h-full justify-center gap-s16`}>
                 <h3 className="font-display text-f20 font-bold leading-[1.4] text-white">
                   {APP_LIVE ? 'Book faster with the app.' : 'No app required — book on the web.'}
                 </h3>
