@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import PageHero from '@/components/PageHero'
 import Reveal from '@/components/Reveal'
-import { Icon } from '@/components/ui'
+import { Icon, externalLinkProps } from '@/components/ui'
 import { BOOKING, EMAIL, EMAIL_HREF } from '@/lib/site'
 
 /**
@@ -112,6 +112,8 @@ export default function WaiverPage() {
 
               <Link
                 href={BOOKING.href}
+              {...externalLinkProps(BOOKING.href)}
+                {...externalLinkProps(BOOKING.href)}
                 className="mt-s30 inline-flex items-center gap-s8 rounded-pill bg-cta px-6 py-s16 font-body text-f16 font-semibold text-white transition-transform duration-300 hover:scale-[1.03]"
               >
                 {BOOKING.label}

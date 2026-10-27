@@ -84,17 +84,13 @@ export const ARRIVAL = [
 export const HOURS = 'Open 24/7 by reservation'
 
 /* ── Booking ──────────────────────────────────────────────────────────────
- * There is no external booking system connected yet, so every CTA lands on the
- * booking request form with its subject already selected — one destination,
- * one label, changed in one place the day a real booking URL exists.
- *
- * To switch to a live booking system: set BOOKING.href to that URL and
- * BOOKING.label back to 'Book your table'. Nothing else needs to change.
+ * Every booking CTA goes to the booking app. It is a different origin, so the
+ * buttons open it in a new tab and the site stays put behind it.
  * ------------------------------------------------------------------------ */
 
 export const BOOKING = {
-  href: '/contact?subject=Table+Booking#booking-form',
-  label: 'Request a booking',
+  href: 'https://app.hausofpong.com/login',
+  label: 'Book your table',
 }
 
 export const EVENTS_BOOKING_HREF = '/contact?subject=Private+%26+Corporate+Events#booking-form'

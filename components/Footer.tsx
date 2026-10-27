@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { SocialLinks } from './ui'
+import { SocialLinks, externalLinkProps } from './ui'
 import {
   ADDRESS,
   BOOKING,
@@ -107,6 +107,7 @@ export default function Footer() {
 
             <Link
               href={BOOKING.href}
+              {...externalLinkProps(BOOKING.href)}
               className="mt-s24 inline-flex items-center gap-s8 rounded-pill bg-cta px-6 py-3 font-body text-f14 font-semibold text-white transition-transform duration-300 hover:scale-[1.03]"
             >
               {BOOKING.label}

@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import PageHero from '@/components/PageHero'
 import Reveal from '@/components/Reveal'
-import { GhostButton, Icon } from '@/components/ui'
+import { GhostButton, Icon, externalLinkProps } from '@/components/ui'
 import { ADDRESS, AMENITIES, ARRIVAL, BOOKING, DIRECTIONS_URL, HOURS, TABLE_COUNT, WAIVER } from '@/lib/site'
 
 /**
@@ -140,6 +140,9 @@ export default function VenueDetailsPage() {
               <div className="flex justify-center pt-s40">
                 <Link
                   href={BOOKING.href}
+              {...externalLinkProps(BOOKING.href)}
+                  {...externalLinkProps(BOOKING.href)}
+                {...externalLinkProps(BOOKING.href)}
                   className="inline-flex w-full max-w-[693px] items-center justify-center rounded-pill bg-cta py-s16 font-body text-f18 font-semibold text-white transition-transform duration-300 hover:scale-[1.02]"
                 >
                   {BOOKING.label}

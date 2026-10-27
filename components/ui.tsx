@@ -28,6 +28,16 @@ export function Icon({
   )
 }
 
+/**
+ * Props that send an off-site link to a new tab. `noopener` matters: without
+ * it the opened page gets a handle on this one through window.opener and can
+ * navigate it. Applied by href rather than by a prop at each call site, so a
+ * new button cannot forget it.
+ */
+export function externalLinkProps(href: string) {
+  return /^https?:\/\//.test(href) ? { target: '_blank' as const, rel: 'noopener noreferrer' } : {}
+}
+
 /** The north-east arrow that trails the CTAs (VECTOR pair, 16x16, 1.33 stroke). */
 function ArrowNE({ className = '' }: { className?: string }) {
   return (
@@ -54,6 +64,7 @@ export function CtaButton({
   return (
     <Link
       href={href}
+      {...externalLinkProps(href)}
       className={`group inline-flex items-center gap-s8 rounded-pill bg-cta px-[1.4583vw] py-s16 font-body text-f16 font-semibold leading-[1.25] text-white transition-transform duration-300 hover:scale-[1.03] max-xl:px-6 ${className}`}
     >
       {children}
@@ -77,6 +88,7 @@ export function GhostButton({
   return (
     <Link
       href={href}
+      {...externalLinkProps(href)}
       className={`group relative inline-flex items-center gap-s8 rounded-pill bg-[#0505054d] px-[1.4583vw] py-s16 font-body text-f16 font-semibold leading-[1.25] text-white backdrop-blur-[12px] transition-colors duration-300 max-xl:px-6 ${className}`}
     >
       <span className="pointer-events-none absolute inset-0 rounded-pill p-px [background:linear-gradient(90deg,rgba(167,74,229,0.65),rgba(255,157,0,0.55))] [mask-composite:exclude] [mask:linear-gradient(#000_0_0)_content-box,linear-gradient(#000_0_0)]" />
