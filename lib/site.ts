@@ -104,10 +104,12 @@ export const DELETION_SUBJECT = 'Account / Data Deletion'
 export const DELETION_HREF = `/contact?subject=${encodeURIComponent(DELETION_SUBJECT)}#booking-form`
 
 /* ── Pricing ──────────────────────────────────────────────────────────────
- * The client has confirmed the section ships as it stands. A `null` rate
- * renders as a muted "TBA" rather than a broken empty cell, so the layout is
- * correct either way; setting a number here is all that is needed whenever the
- * rates are decided, and nothing else has to change.
+ * Rates confirmed by the client. The hour is exactly double the half hour, so
+ * there is no discount for booking longer — worth knowing before anyone writes
+ * copy implying otherwise.
+ *
+ * A null rate still renders as a muted "TBA", which is how this shipped while
+ * the numbers were being decided.
  * ------------------------------------------------------------------------ */
 
 export type Rate = number | null
@@ -124,15 +126,15 @@ export const PRICING: {
     duration: '30 minutes',
     minutes: 30,
     blurb: 'A quick rally — right for a warm-up, a lunch break, or a first visit.',
-    offPeak: null,
-    peak: null,
+    offPeak: 15,
+    peak: 18,
   },
   {
     duration: '60 minutes',
     minutes: 60,
     blurb: 'A full session — enough for a real match, a group, or a date night.',
-    offPeak: null,
-    peak: null,
+    offPeak: 30,
+    peak: 36,
     featured: true,
   },
 ]
