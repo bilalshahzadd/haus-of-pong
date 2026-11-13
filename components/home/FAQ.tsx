@@ -23,7 +23,7 @@ const FAQS: Item[] = [
   },
   {
     q: 'Where are you located?',
-    a: `Inside the Aloft Hotel at ${ADDRESS.street} ${ADDRESS.suite}, ${ADDRESS.city}, ${ADDRESS.state} ${ADDRESS.zip}.`,
+    a: `${ADDRESS.street} ${ADDRESS.suite}, ${ADDRESS.city}, ${ADDRESS.state} ${ADDRESS.zip}.`,
   },
   {
     q: 'What are your hours?',

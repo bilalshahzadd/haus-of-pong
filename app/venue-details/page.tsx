@@ -60,8 +60,7 @@ export default function VenueDetailsPage() {
                 <h2 className={serifHead}>Downtown Oklahoma City</h2>
 
                 <p className="mt-s30 font-body text-f18 leading-[1.611] text-white/60">
-                  {TABLE_COUNT} tournament-grade tables in the heart of Downtown OKC, inside the Aloft Hotel. The
-                  lounge is fully automated and entirely self-serve — no staff, no front desk, and a door that
+                  {TABLE_COUNT} tournament-grade tables in the heart of Downtown OKC. The lounge is fully automated and entirely self-serve — no staff, no front desk, and a door that
                   unlocks for you the moment your reservation starts.
                 </p>
 

@@ -30,7 +30,7 @@ export default function Location() {
 
           <Reveal delay={0.16}>
             <p className="body-lg max-w-[600px] pt-s8">
-              One lounge, inside the Aloft Hotel, open around the clock. Reserve a table online and your access
+              One lounge in Downtown OKC, open around the clock. Reserve a table online and your access
               instructions do the rest.
             </p>
           </Reveal>
@@ -46,8 +46,8 @@ export default function Location() {
           <div className="relative mt-s50">
             <div className="relative aspect-[1520/853] w-full overflow-hidden rounded-r24 border border-white/[0.05] bg-ink-500 max-md:aspect-[4/3]">
               <Image
-                src="/images/location-lounge.png"
-                alt="Haus of Pong lounge, Downtown OKC"
+                src="/images/venue-room.jpg"
+                alt="The Haus of Pong floor in Downtown OKC — four tournament tables under the Ping Pong Club wall"
                 fill
                 sizes="(max-width: 1520px) 100vw, 1520px"
                 className="object-cover"

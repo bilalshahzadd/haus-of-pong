@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: 'Haus of Pong — Oklahoma City’s First Fully Automated Ping Pong Lounge',
   description:
-    'Oklahoma City’s first fully automated ping pong lounge. Four tournament tables inside the Aloft Hotel in Downtown OKC — self-serve, reservation-only, open 24/7. Book online, the door unlocks for you.',
+    'Oklahoma City’s first fully automated ping pong lounge. Four tournament tables in Downtown OKC — self-serve, reservation-only, open 24/7. Book online, the door unlocks for you.',
   keywords: [
     'ping pong Oklahoma City',
     'table tennis OKC',

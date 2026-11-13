@@ -44,14 +44,14 @@ export const SITE_URL = (process.env.SITE_URL ?? 'https://hausofpong.com').repla
 /* ── Location ─────────────────────────────────────────────────────────── */
 
 export const ADDRESS = {
-  building: 'Inside the Aloft Hotel',
+  building: 'Downtown Oklahoma City',
   street: '209 N. Walnut Ave.',
   suite: 'Suite 102',
   city: 'Oklahoma City',
   state: 'OK',
   zip: '73104',
   /** Two-line form for the contact / venue detail rows. */
-  lines: ['Inside the Aloft Hotel', '209 N. Walnut Ave. Suite 102, Oklahoma City, OK 73104'],
+  lines: ['209 N. Walnut Ave. Suite 102', 'Oklahoma City, OK 73104'],
 }
 
 /** Deep link that hands the address straight to the user's maps app. Uses the
@@ -67,12 +67,12 @@ export const ARRIVAL = [
   {
     icon: 'icon-location-pin',
     title: 'Find the building',
-    copy: 'We’re inside the Aloft Hotel at 209 N. Walnut Ave., on the ground floor in Suite 102.',
+    copy: 'We’re at 209 N. Walnut Ave. in Downtown OKC, on the ground floor in Suite 102.',
   },
   {
     icon: 'icon-parking',
     title: 'Parking',
-    copy: 'Street parking runs along N. Walnut Ave., and the Aloft lot is right at the building.',
+    copy: 'Street parking runs along N. Walnut Ave., and there’s a lot right at the building.',
   },
   {
     icon: 'about-automated-entry',
@@ -104,9 +104,9 @@ export const DELETION_SUBJECT = 'Account / Data Deletion'
 export const DELETION_HREF = `/contact?subject=${encodeURIComponent(DELETION_SUBJECT)}#booking-form`
 
 /* ── Pricing ──────────────────────────────────────────────────────────────
- * Rates confirmed by the client. The hour is exactly double the half hour, so
- * there is no discount for booking longer — worth knowing before anyone writes
- * copy implying otherwise.
+ * Rates confirmed by the client. The hour is cheaper per minute than the half
+ * hour at both tiers, so booking longer is the better value — the 60-minute
+ * card is the featured one for that reason.
  *
  * A null rate still renders as a muted "TBA", which is how this shipped while
  * the numbers were being decided.
@@ -126,15 +126,15 @@ export const PRICING: {
     duration: '30 minutes',
     minutes: 30,
     blurb: 'A quick rally — right for a warm-up, a lunch break, or a first visit.',
-    offPeak: 15,
-    peak: 18,
+    offPeak: 14,
+    peak: 16,
   },
   {
     duration: '60 minutes',
     minutes: 60,
     blurb: 'A full session — enough for a real match, a group, or a date night.',
-    offPeak: 30,
-    peak: 36,
+    offPeak: 18,
+    peak: 22,
     featured: true,
   },
 ]

@@ -69,8 +69,8 @@ export default function Gallery() {
           <div className="flex flex-col gap-s24 xl:gap-[34px]">
             <Reveal>
               <Tile
-                src="/images/gallery-venue.png"
-                alt="Neon-lit tournament tables inside the Haus"
+                src="/images/venue-paddle-wall.jpg"
+                alt="The paddle wall beside a STIGA table and a basket of balls"
                 label="Venue"
                 aspect="aspect-[429/640]"
                 priority
