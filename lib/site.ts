@@ -134,7 +134,7 @@ export const PRICING: {
     minutes: 60,
     blurb: 'A full session — enough for a real match, a group, or a date night.',
     offPeak: 18,
-    peak: 22,
+    peak: 24,
     featured: true,
   },
 ]
